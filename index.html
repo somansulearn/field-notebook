@@ -1,0 +1,1167 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>जनगणना फील्ड नोटबुक</title>
+<meta name="description" content="जनगणना 2027 प्रगणकों के लिए ऑफलाइन फील्ड नोटबुक — आधिकारिक ऐप नहीं">
+<meta name="theme-color" content="#0b4a8b">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>:root{--bg:#f4f2ec;--card:#fff;--ink:#16191d;--mut:#5d636b;--line:#d8d4ca;--acc:#0b4a8b;--acc2:#e7eef8;--ok:#1d7a3a;--okbg:#e3f3e7;--warn:#a35b00;--warnbg:#fff1db;--bad:#b42318;--badbg:#fde8e6;--r:12px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 "Noto Sans Devanagari","Noto Sans",system-ui,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+#app{max-width:760px;margin:0 auto;padding:0 12px 120px}
+.top{position:sticky;top:0;z-index:20;background:var(--acc);color:#fff;margin:0 -12px;padding:10px 12px;display:flex;align-items:center;gap:8px}
+.top h1{font-size:18px;margin:0;flex:1;line-height:1.25;min-width:0}
+.top h1 small{display:block;font-size:13px;font-weight:400;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top button{background:rgba(255,255,255,.16);border:0;color:#fff;border-radius:10px;min-width:44px;height:44px;padding:0 12px;font-size:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:12px 0}
+.card h3{margin:0 0 8px;font-size:17px}
+.mut{color:var(--mut);font-size:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
+label.l{display:block;font-size:14px;color:var(--mut);margin:8px 0 3px}
+input,select,textarea{width:100%;min-height:46px;border:1.5px solid #b9b4a8;border-radius:10px;padding:8px 10px;background:#fff}
+input:focus,select:focus,textarea:focus{outline:3px solid #9cc2f0;border-color:var(--acc)}
+input.sm{width:5.2em}input.md{width:7.5em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:8px 16px;border-radius:10px;border:1.5px solid var(--acc);background:#fff;color:var(--acc);font-weight:600}
+.btn.p{background:var(--acc);color:#fff}
+.btn.ok{border-color:var(--ok);background:var(--ok);color:#fff}
+.btn.bad{border-color:var(--bad);color:var(--bad)}
+.btn.w{width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0}
+.chip{min-height:44px;padding:6px 12px;border-radius:22px;border:1.5px solid #a9a395;background:#fff;text-align:left}
+.chip i{font-style:normal;font-size:13px;color:var(--mut);margin-left:2px}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.chip.on i{color:#d7e6f8}
+.chip.sug{border-style:dashed;border-color:var(--acc)}
+.chip .rk{display:inline-block;background:#fff;color:var(--acc);border-radius:50%;width:22px;height:22px;text-align:center;font-size:13px;line-height:22px;margin-right:4px;font-weight:700}
+.q{background:var(--card);border:1px solid var(--line);border-left:5px solid #c9c3b6;border-radius:10px;padding:10px 12px;margin:10px 0}
+.q.ok{border-left-color:var(--ok)}
+.q h4{margin:0 0 6px;font-size:16px;display:flex;gap:8px;align-items:baseline}
+.q h4 .n{background:var(--acc2);color:var(--acc);border-radius:6px;padding:0 7px;font-size:14px;font-weight:700;flex:none}
+.q.ok h4 .n{background:var(--okbg);color:var(--ok)}
+.q h4 .t{flex:1}
+.na{color:var(--mut);font-size:14px;padding:4px 12px;margin:4px 0;border-left:3px dashed var(--line)}
+.warn{color:var(--warn);background:var(--warnbg);border-radius:8px;padding:4px 8px;font-size:14px;margin-top:6px}
+.hint{color:var(--mut);font-size:13px;margin-top:4px}
+.sec{position:sticky;top:64px;z-index:9;display:flex;gap:6px;overflow-x:auto;padding:8px 0;background:var(--bg)}
+.sec button{flex:none;border:1px solid var(--line);background:#fff;border-radius:18px;padding:6px 12px;min-height:38px;font-size:14px}
+.strip{display:flex;gap:8px;overflow-x:auto;padding:10px 0 6px}
+.mchip{flex:none;border:1.5px solid #a9a395;background:#fff;border-radius:12px;padding:6px 10px;min-height:52px;text-align:left;max-width:170px}
+.mchip b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mchip span{font-size:12px;color:var(--mut)}
+.mchip.on{border-color:var(--acc);background:var(--acc2);box-shadow:0 0 0 2px var(--acc) inset}
+.mchip.done span{color:var(--ok);font-weight:700}
+.mchip.add{border-style:dashed;color:var(--acc);font-weight:700;min-width:64px;text-align:center}
+.hh{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px;margin:8px 0}
+.hh .h1{font-weight:700}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:10px;padding:1px 8px;margin-left:4px;vertical-align:2px}
+.pill.new{background:#eee;color:#555}.pill.part{background:var(--warnbg);color:var(--warn)}.pill.done{background:var(--okbg);color:var(--ok)}.pill.ent{background:var(--acc);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.stats div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 2px}
+.stats b{display:block;font-size:20px}.stats span{font-size:12px;color:var(--mut)}
+.banner{background:var(--warnbg);color:#5a3400;border:1px solid #f0c98a;border-radius:var(--r);padding:10px 12px;margin:12px 0}
+.banner.bad{background:var(--badbg);border-color:#f2b8b2;color:#7a1610}
+.fab{position:fixed;right:16px;bottom:18px;z-index:30;border-radius:28px;min-height:56px;padding:0 22px;font-size:18px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
+.foot .in{max-width:760px;margin:0 auto;display:flex;gap:8px}
+.foot .btn{flex:1}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:10px;z-index:99;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
+#toast.show{opacity:1}
+dialog{border:0;border-radius:16px;padding:16px;width:min(92vw,520px);max-height:85vh}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+#lock{position:fixed;inset:0;z-index:100;background:var(--acc);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px}
+#lock[hidden]{display:none}
+#lock input{max-width:220px;text-align:center;font-size:28px;letter-spacing:8px}
+table.map{border-collapse:collapse;width:100%;font-size:14px}table.map td,table.map th{border:1px solid var(--line);padding:4px}
+.who{font-size:12px;color:var(--mut)}
+details summary{cursor:pointer;min-height:40px;display:flex;align-items:center}
+#print{display:none}
+/* ---------- Print / transfer sheet ---------- */
+.ps{background:#fff;color:#000;font-size:13px;line-height:1.35}
+.ps .phh{border:1.5px solid #000;padding:8px;margin:0 0 14px;page-break-after:always}
+.ps .phh:last-child{page-break-after:auto}
+.ps h2{font-size:16px;margin:0 0 4px}
+.ps .loc{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;margin-bottom:6px}
+.ps .loc b{font-size:13px}
+.ps .tw{overflow-x:auto}.ps .tw table{min-width:640px}
+.ps table{border-collapse:collapse;width:100%;margin:4px 0 8px}
+.ps th,.ps td{border:1px solid #444;padding:3px 4px;vertical-align:top;text-align:left}
+.ps th{background:#eee;font-size:11px}
+.ps .pm{border:1px solid #444;margin:6px 0;padding:4px 6px;page-break-inside:avoid}
+.ps .pm h3{font-size:14px;margin:0 0 3px;background:#eee;padding:2px 4px}
+.ps .kv{display:grid;grid-template-columns:repeat(2,1fr);gap:1px 12px}
+.ps .kv div{border-bottom:1px dotted #bbb;padding:1px 0}
+.ps .kv b{font-weight:700}
+.ps .qn{display:inline-block;min-width:22px;font-weight:700}
+.ps .tick{font-size:12px;margin-top:4px}
+@media (max-width:420px){.grid2{grid-template-columns:1fr}.ps .kv{grid-template-columns:1fr}}
+@media print{
+  body{background:#fff}
+  #app,#toast,#lock,dialog,.noprint{display:none!important}
+  #print{display:block!important}
+  .ps{font-size:11.5px}
+  .ps .tw table{min-width:0}
+  .ps .kv{grid-template-columns:repeat(2,1fr)}
+  @page{size:A4;margin:10mm}
+}
+
+.sugbox{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
+.sugbox[hidden]{display:none}
+.sgi{min-height:42px;border:1.5px solid var(--acc);background:var(--acc2);color:var(--ink);border-radius:21px;padding:4px 14px;font-size:17px}
+.sgi i{font-style:normal;font-size:13px;color:var(--mut);margin-left:4px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="print"></div>
+<div id="lists" hidden></div>
+<div id="lock" hidden><div style="font-size:20px;font-weight:700">🔒 फील्ड नोटबुक</div><div>PIN डालें</div><input id="lock-in" type="password" inputmode="numeric" maxlength="6" autocomplete="off"></div>
+<div id="toast" role="status"></div>
+<script>/* ===== Code lists — transcribed from जनगणना 2027 प्रगणक पुस्तिका (अनुलग्नक V, कोड निर्देशिका) ===== */
+const C = {
+  SEX: [['1','पुरुष'],['2','महिला'],['3','ट्रांसजेंडर व्यक्ति']],
+  MAR: [['1','अविवाहित (कभी विवाह नहीं)'],['2','वर्तमान में विवाहित'],['3','विधवा/विधुर'],['4','संबंध विच्छेदित'],['5','तलाकशुदा']],
+  RELG: [['1','हिंदू'],['2','मुस्लिम'],['3','ईसाई'],['4','सिख'],['5','बौद्ध'],['6','जैन'],['O','अन्य']],
+  YN: [['1','हाँ'],['2','नहीं']],
+  HTYPE: [['1','सामान्य'],['2','संस्थागत'],['3','बेघर']],
+  REL: [['01','मुखिया'],['02','पति/पत्नी'],['03','बेटा/बेटी'],['04','बहू (बेटे की पत्नी)'],['05','दामाद (बेटी का पति)'],['06','पोता/पोती'],['07','नाती/नातिन'],['08','पोते की पत्नी'],['09','पोती का पति'],['10','नाती की पत्नी'],['11','नातिन का पति'],['12','माता-पिता'],['13','भाई/बहन'],['14','भाई की पत्नी'],['15','बहन का पति'],['16','भतीजा/भतीजी'],['17','भांजा/भांजी'],['18','दादा-दादी'],['19','नाना-नानी'],['20','पति के पिता/माता'],['21','पति का भाई/बहन'],['22','पत्नी के पिता/माता'],['23','पत्नी का भाई/बहन'],['24','पिता का भाई/बहन'],['25','चाची/ताई'],['26','फूफा'],['27','मामा/मौसी'],['28','मामी'],['29','मौसा'],['30','अन्य रिश्तेदार'],['31','घरेलू नौकर'],['32','अन्य गैर-संबंधित / आगंतुक / मेहमान']],
+  DIS: [['1','देखने में'],['2','सुनने में'],['3','बोलने में'],['4','चलने-फिरने में'],['5','बौद्धिक नि:शक्तता'],['6','मानसिक रोग'],['7','एसिड अटैक के कारण'],['8','दीर्घकालिक तंत्रिका रोग'],['9','रक्त विकार के कारण'],['0','बहु नि:शक्तता']],
+  LIT: [['1','साक्षर'],['2','निरक्षर']],
+  E16A: [['1','विद्यालय'],['2','कॉलेज'],['3','व्यावसायिक संस्थान'],['4','पेशेवर संस्थान'],['5','दिव्यांगों हेतु विशेष संस्थान'],['6','साक्षरता केंद्र'],['7','अन्य संस्था']],
+  E16B: [['8','पहले शिक्षा ग्रहण की है'],['9','कभी शिक्षा ग्रहण नहीं की']],
+  E17A: [['00','पूर्व-प्राथमिक'],['01','कक्षा 1'],['02','कक्षा 2'],['03','कक्षा 3'],['04','कक्षा 4'],['05','कक्षा 5'],['06','कक्षा 6'],['07','कक्षा 7'],['08','कक्षा 8'],['09','कक्षा 9'],['10','कक्षा 10'],['11','कक्षा 11'],['12','कक्षा 12'],['13','आईटीआई'],['14','डिप्लोमा/प्रमाणपत्र'],['15','स्नातक'],['16','स्नातकोत्तर (पीजी) डिप्लोमा'],['17','स्नातकोत्तर/मास्टर्स'],['18','एम.फिल'],['19','डॉक्टरेट और उससे ऊपर']],
+  E17B: [['1','कला/सामाजिक विज्ञान'],['2','विज्ञान'],['3','वाणिज्य'],['4','इंजीनियरिंग/प्रौद्योगिकी'],['5','आईटी/कंप्यूटर'],['6','भाषा'],['7','चिकित्सा विज्ञान'],['8','शिक्षा'],['9','प्रबंधन'],['10','विधि'],['11','कृषि व संबंधित'],['12','अन्य']],
+  W18: [['1','दीर्घकालिक कर्मी (6 माह+)'],['2','अल्पकालिक कर्मी (3 से <6 माह)'],['3','अर्ध-अल्पकालिक कर्मी (<3 माह)'],['4','गैर-कर्मी']],
+  W19: [['1','कृषक (काश्तकार)'],['2','कृषि मजदूर (खेतिहर)'],['3','घरेलू/पारिवारिक उद्योग कर्मी'],['4','वृक्षारोपण/पशुधन/वानिकी/मछली/शिकार'],['5','विनिर्माण'],['6','निर्माण'],['7','सेवा'],['8','अन्य गतिविधि']],
+  C22: [['1','मालिक (नियोक्ता)'],['2','कर्मचारी'],['3','एकल कर्मी'],['4','पारिवारिक कर्मी']],
+  N23: [['1','छात्र'],['2','गृह कार्य'],['3','आश्रित'],['4','पेंशनभोगी'],['5','किरायाजीवी'],['6','अन्य']],
+  S24: [['1','हाँ, पूर्णकालिक'],['2','हाँ, अंशकालिक'],['3','नहीं']],
+  M25: [['1','पैदल'],['2','साइकिल'],['3','मोपेड/स्कूटर/मोटरसाइकिल'],['4','कार/जीप/वैन'],['5','टेम्पो/ऑटो/टैक्सी'],['6','बस'],['7','ट्रेन/मेट्रो'],['8','जल परिवहन'],['9','अन्य साधन'],['0','कोई यात्रा नहीं']],
+  RU: [['1','ग्रामीण'],['2','शहरी']],
+  R28: [['1','कार्य/रोजगार'],['2','व्यापार'],['3','शिक्षा'],['4','विवाह'],['5','जन्म के बाद स्थानांतरण'],['6','परिवार सहित स्थानांतरण'],['7','प्राकृतिक आपदा'],['8','अन्य कारण']],
+};
+
+/* Countries — Q 8, 11, 12, 26, 27, 30, 34 */
+C.CTY = [['41','अफगानिस्तान'],['42','ऑस्ट्रेलिया'],['43','बांग्लादेश'],['44','भूटान'],['45','कनाडा'],['46','चीन'],['47','फिजी'],['48','फ्रांस'],['49','जर्मनी'],['50','इंडोनेशिया'],['51','ईरान'],['52','इराक'],['53','जापान'],['54','कजाकिस्तान'],['55','केन्या'],['56','कुवैत'],['57','मलेशिया'],['58','मालदीव'],['59','मॉरीशस'],['60','म्यांमार'],['61','नेपाल'],['62','नाइजीरिया'],['63','पाकिस्तान'],['64','पुर्तगाल'],['65','सऊदी अरब'],['66','सिंगापुर'],['67','श्रीलंका'],['68','तुर्की'],['69','यू.एस.ए.'],['70','युगांडा'],['71','यू.के.'],['72','संयुक्त अरब अमीरात'],['73','वियतनाम'],['74','जाम्बिया'],['99','कोई अन्य देश']];
+
+/* Mother tongue directory — code = position (1..261) */
+C.MT = ('असमिया|मैथिली|मलयालम|मणिपुरी|मराठी|नेपाली|ओडिया|पंजाबी|संस्कृत|संथाली|सिंधी|बंगाली|तमिल|तेलुगू|उर्दू|बोडो|डोगरी|गुजराती|हिंदी|कन्नड़|कश्मीरी|कोंकणी|अरे|अवधी|बड़गा|' +
+ 'बघती|बघेली|बागड़ी|बागड़ी राजस्थानी|बंजारी|भद्रवाही|भगोरिया|भंसारी|भरमौरी|भटेअली|भाटिया|भतरी|भोजपुरी|भुइया|भूमिजलि|बिलासपुरी कहलूरी|बिश्नोई|बोडो|ब्रजभाषा|बुन्देली|चकमा|चंबेली|छत्तीसगढ़ी|चुराही|दर्दी|' +
+ 'देसिया|ढूंढारी|गढ़वाली|गवारी|गोजरी|गोरबोली|गुजराव|हाइजोंग|हंडूरी|हारा|हरियाणवी|इरुला|जौनपुरी|कछारी|कच्छी|कैकडी|कांगड़ी|करमाली|खड़ी बोली|खोरठा|किश्तवाड़ी|कोली|कोरवा|कुदुबी|कुल्वी|' +
+ 'कुमाउनी|कुरमालीथार|कुरुबा|लमानी|लारिया|लोधी|मगधी|माहिली|मालवी|मालवानी|मंडेली|मारवाड़ी|मेक|मेवाड़ी|मेवाती|नागपुरिया|नवैत|निमाड़ी|पदारी|पहाड़ी|पलमुहा|पंचपरगनिया|पंडो|पंगवाली|पनिया|पट्टानी|पावरी|पोंची|प्राकृत|प्रोजा|पूरन|' +
+ 'पूर्वी मैथिली|राजस्थानी|राजबंगसी|रेली|सदन|संबलपुरी|सौराष्ट्र|सिराजी|सिरमौरी|सोंदवारी|सुगाली|सरगुजिया|सुरजापुरी|थारू|थाटी|वडारी|येरवा|येरुकाला|फोम|पोचुरी|राभा|राय|रेंगमा|संगतम|सवारा|सेमा|शेरपा|शिना|तमांग|तांगखुल|तांगसा|' +
+ 'थाडो|तिब्बती|त्रिपुरी|तुलु|वैफेई|वांचो|यिमचुंगरे|जेलियांग|जेमी|जोउ|आदि|अफगानी|अनल|अंगामी|एओ|अरबी|बल्टी|भीली|भोटिया|भूमिज|बिष्णुपुरिया|चखेसांग|चक्रु|चांग|कुर्गी|देवरी|दिमासा|अंग्रेजी|गदाबा|गंगटे|गारो|' +
+ 'गोंडी|हलबी|हलम|हमार|हो|जटापु|जुआंग|काबुई|कार्बी|खानदेशी|खारिया|खासी|खेझा|खिएम्नुंगन|खोंड|किन्नौरी|किसन|कोच|कोडा|कोलामी|कोम|कोंडा|कोन्याक|कोरकू|कोरवा|कोया|कुई|कुकी|कुरुख|लद्दाखी|लाहौली|' +
+ 'लहंदा|लखेर|लालुंग|लेप्चा|लियांगमेई|लिम्बु|लोथा|लुशाई|माल्टो|माओ|मारम|मारिंग|मिरी|मिश्मी|मोघ|मोनपा|मुंडा|मुंडारी|निकोबारी|निस्सी|नोक्टे|पाइते|परजी|पावी|आदिगैलोंग|आदिमिनियोंग|अहिरानी|अपतानी|बहावलपुरी|बाउरी|बरेल|' +
+ 'बाउटी|भिलाली|बिष्णुप्रिया मणिपुरी|चिर|चोधरी|चुंगली|डांगी|धोडिया|धुर्वा|डोर्ली|गामती|गरासिया|गुजरी|हिंदीमुल्तानी|कलारी|कोडव|कोडू|कोकबारक|कोकना|कोल|कोराकु|कुल्हिया|कुवी|लोहारा|लिंगंगम|मारा|मारिया|मावची|मोंगसेन|मुवासी|पहाड़िया')
+ .split('|').map((n, i) => [String(i + 1), n]);
+
+/* States/UTs and districts — Q 11, 12, 26, 27, 30, 34. Only pages present in the scan are included;
+   'partial' = some districts were on pages not scanned (use "अन्य — कोड लिखें"). */
+const D = (s) => s.split('|').map(x => { const [n, c] = x.split(':'); return [c, n]; });
+C.STATES = [
+  { c: '10', n: 'उत्तर प्रदेश', d: D('आगरा:20|अलीगढ़:15|अंबेडकर नगर:52|अमेठी:54|अमरोहा:8|औरैया:36|अयोध्या:51|आजमगढ़:66|बागपत:10|बहराइच:55|बलिया:68|बलरामपुर:57|बाँदा:44|बाराबंकी:50|बरेली:24|बस्ती:60|भदोही:73|बिजनौर:4|बदायूं:23|बुलंदशहर:14|चंदौली:71|चित्रकूट:45|देवरिया:65|एटा:17|इटावा:35|फर्रुखाबाद:33|फतेहपुर:46|फिरोजाबाद:21|गौतम बुद्ध नगर:13|गाजियाबाद:11|गाजीपुर:70|गोंडा:58|गोरखपुर:63|हमीरपुर:42|हापुड़:12|हरदोई:29|हाथरस:16|जालौन:39|जौनपुर:69|झांसी:40|कन्नौज:34|कानपुर देहात:37|कानपुर नगर:38|कासगंज:18|कौशाम्बी:48|लखीमपुर खीरी:27|कुशीनगर:64|ललितपुर:41|लखनऊ:31|महोबा:43|महाराजगंज:62|मैनपुरी:22|मथुरा:19|मऊ:67|मेरठ:9|मिर्जापुर:74|मुरादाबाद:5|मुजफ्फरनगर:2|पीलीभीत:25|प्रतापगढ़:47|प्रयागराज:49|रायबरेली:32|रामपुर:7|सहारनपुर:1|संभल:6|संत कबीर नगर:61|शाहजहांपुर:26|शामली:3|श्रावस्ती:56|सिद्धार्थनगर:59|सीतापुर:28|सोनभद्र:75|सुल्तानपुर:53|उन्नाव:30|वाराणसी:72') },
+  { c: '6', n: 'उत्तराखंड', d: D('अल्मोड़ा:9|बागेश्वर:8|चमोली:2|चम्पावत:10|देहरादून:5|गढ़वाल:6|हरिद्वार:13|नैनीताल:11|पिथौरागढ़:7|रुद्रप्रयाग:3|टिहरी गढ़वाल:4|उधम सिंह नगर:12|उत्तरकाशी:1') },
+  { c: '8', n: 'दिल्ली (रा.रा.क्षे.)', d: D('मध्य:8|मध्य उत्तर:3|पूर्व:6|नई दिल्ली:11|उत्तर:4|उत्तर पूर्व:5|उत्तर पश्चिम:2|पुरानी दिल्ली:7|बाहरी उत्तर:1|दक्षिण:13|दक्षिण पूर्व:12|दक्षिण पश्चिम:10|पश्चिम:9') },
+  { c: '4', n: 'पंजाब', partial: true, d: D('अमृतसर:3|बरनाला:20|बठिंडा:19|फरीदकोट:18|फतेहगढ़ साहिब:12|फाजिल्का:16|फिरोजपुर:15|गुरदासपुर:2|होशियारपुर:7|जालंधर:6|कपूरथला:5|लुधियाना:13|मलेरकोटला:21|मनसा:23|मोगा:14|पठानकोट:1|पटियाला:11|रूपनगर:9|साहिबजादा अजीत सिंह नगर:10|संगरूर:22|शहीद भगत सिंह नगर:8') },
+  { c: '20', n: 'पश्चिम बंगाल', partial: true, d: D('अलीपुरद्वार:4|बांकुड़ा:16|बीरभूम:10|कूच बिहार:5|दक्षिण दिनाजपुर:7|दार्जिलिंग:1|हुगली:15|हावड़ा:18') },
+  { c: '22', n: 'ओडिशा', d: D('अनुगुल:15|बलांगीर:24|बालेश्वर:8|बारगढ़:1|भद्रक:9|बौध:22|कटक:12|देवगढ़:4|ढेंकनाल:14|गजपति:20|गंजम:19|जगतसिंहपुर:11|जाजपुर:13|झारसुगुडा:2|कालाहांडी:26|कंधमाल:21|केंद्रपाड़ा:10|केंदुझार:6|खोरधा:17|कोरापुट:29|मल्कानगिरी:30|मयूरभंज:7|नबरंगपुर:28|नयागढ़:16|नुआपाड़ा:25|पुरी:18|रायगढ़:27|संबलपुर:3|सुबरनपुर:23|सुंदरगढ़:5') },
+  { c: '17', n: 'त्रिपुरा', d: D('धलाई:6|गोमती:5|खोवाई:3|उत्तरी त्रिपुरा:7|सिपाहीजाला:2|दक्षिण त्रिपुरा:4|उनाकोटी:8|पश्चिमी त्रिपुरा:1') },
+  { c: '18', n: 'मेघालय', d: D('पूर्वी गारो हिल्स:4|पूर्वी जैंतिया हिल्स:12|पूर्वी खासी हिल्स:10|पूर्वी पश्चिमी खासी हिल्स:8|उत्तरी गारो हिल्स:5|रिभोई:9|दक्षिण गारो हिल्स:3|दक्षिण पश्चिम गारो हिल्स:2|दक्षिण पश्चिम खासी हिल्स:7|पश्चिमी गारो हिल्स:1|पश्चिम जैंतिया हिल्स:11|पश्चिमी खासी हिल्स:6') },
+  { c: '16', n: 'मिजोरम', d: D('आइजोल:3|चम्फाई:5|हनहथियल:9|खॉज़ॉल:6|कोलासिब:2|लॉन्टलाई:10|लुंगलेई:8|मामित:1|सैतुअल:4|सेरछिप:7|सियाहा:11') },
+  { c: '14', n: 'नागालैंड', d: D('चुमौकेदिमा:7|दीमापुर:5|किफायर:14|कोहिमा:15|लोंगलेंग:13|मेलुरी:9|मोकोकचुंग:2|मोन:1|निउलैंड:6|नोक्लाक:11|पेरेन:17|फेक:8|शमाटोर:12|त्सेमिन्यु:16|तुएनसांग:10|वोखा:4|जुन्हेबोटो:3') },
+  { c: '13', n: 'अरुणाचल प्रदेश', partial: true, d: D('अंजॉ:27|बिचोम:3|चांगलांग:16|दिबांग घाटी:23|पूर्वी कामेंग:4|पूर्वी सियांग:14|कामले:8|क्रा दादी:22|कुरुंग कुमे:21|लेपराडा:13|लोहित:25|लोंगडिंग:18|निचली दिबांग घाटी:24|निचला सियांग:12|निचला सुबनसिरी:19|नामसाई:26|पक्के केसांग:5') },
+  { c: '28', n: 'आंध्र प्रदेश', d: D('अल्लूरी सीताराम राजू:6|अनकापल्ली:5|अनंतपुरमु:22|अन्नमय्या:27|बापतला:16|चित्तूर:28|डॉ. बी.आर. अंबेडकर कोनासीमा:9|पूर्वी गोदावरी:10|एलुरु:11|गुंटूर:15|काकीनाडा:8|कृष्णा:13|कुरनूल:21|मरकापुरम:19|नांदयाल:20|एनटीआर:14|पलनाडु:17|पार्वतीपुरम मन्याम:2|पोलावरम:7|प्रकाशम:18|श्री पोट्टी श्रीरामुलु नेल्लोर:25|श्री सत्य साई:23|श्रीकाकुलम:1|तिरुपति:26|विशाखापत्तनम:4|विजयनगरम:3|पश्चिम गोदावरी:12|वाईएसआर कडप्पा:24') },
+  { c: '36', n: 'अंडमान और निकोबार', d: D('निकोबार:1|उत्तर और मध्य अंडमान:2|दक्षिण अंडमान:3') },
+  { c: '35', n: 'पुदुचेरी', partial: true, d: D('कराईकल:2|पुदुचेरी:1') },
+];
+
+/* UP Scheduled Castes / Scheduled Tribes (state list). Code shown = list Sl No in 3 digits — verify once in the training app. */
+const EAST16 = 'महाराजगंज, सिद्धार्थनगर, बस्ती, गोरखपुर, देवरिया, मऊ, आजमगढ़, जौनपुर, बलिया, गाजीपुर, वाराणसी, मिर्जापुर, सोनभद्र, चंदौली, कुशीनगर, भदोही, संत कबीर नगर';
+const SCN = { 1: 'सोनभद्र जिले को छोड़कर', 2: 'सोनभद्र और वाराणसी जिले को छोड़कर', 3: EAST16 + ' जिलों को छोड़कर', 4: 'देवरिया, बलिया, गाजीपुर, वाराणसी और सोनभद्र को छोड़कर', 5: 'सोनभद्र और मिर्जापुर जिले को छोड़कर', 6: 'ललितपुर जिले को छोड़कर' };
+const STN = { 1: 'केवल ' + EAST16 + ' जिलों में', 2: 'केवल देवरिया, बलिया, गाजीपुर, वाराणसी एवं सोनभद्र में', 3: 'केवल ललितपुर जिले में', 4: 'केवल सोनभद्र जिले में', 5: 'केवल सोनभद्र एवं मिर्जापुर में', 6: 'केवल सोनभद्र एवं वाराणसी में' };
+const L3 = (s, notes) => s.split('|').map((x, i) => { const [h, e, n] = x.split(':'); return [String(i + 1).padStart(3, '0'), h, e, n ? notes[n] : '']; });
+C.SC = L3('अगरिया:Agariya:1|बधिक:Badhik|बादी:Badi|बहेलिया:Baheliya|बैगा:Baiga:1|बैसवार:Baiswar|बजनिया:Bajaniya|बाजगी:Bajgi|बलहार:Balahar|बलाई:Balai|बाल्मीकि:Balmiki|बंगाली:Bangali|बनमानुष:Banmanus|बांसफोड़:Bansphor|बरवार:Barwar|बसोड़:Basor|बावरिया:Bawariya|बेलदार:Beldar|बेरिया:Beriya|भंतू:Bhantu|भुईया:Bhuiya:1|भुईयार:Bhuyiar|बोरिया:Boria|चमार, धुसिया, झुसिया, जाटव:Chamar Dhusia Jhusia Jatava Jatav|चेरो:Chero:2|दबगर:Dabgar|धंगड़:Dhangar|धानुक:Dhanuk|' +
+  'धरकार:Dharkar|धोबी:Dhobi|डोम:Dom|डोमर:Domar|दुसाध:Dusadh|घरामी:Gharami|घसिया:Ghasiya|गोंड:Gond:3|ग्वाल:Gual|हबूड़ा:Habura|हरी:Hari|हेला:Hela|कलाबाज:Kalabaz|कंजर:Kanjar|कपड़िया:Kapariya|करवल:Karwal|खराहा:Khairaha|खरवार (बनबांसी को छोड़कर):Kharwar:4|खटीक:Khatik|खोरोट:Khorot|कोल:Kol|कोरी:Kori|कोरवा:Korwa|लालबेगी:Lalbegi|मझवार:Majhwar|' +
+  'मजहबी:Mazhabi|मुसहर:Musahar|नट:Nat|पंखा:Pankha:5|परहिया:Parahiya:1|पासी, तरमाली:Pasi Tarmali|पातरी:Patari:1|रावत:Rawat|सहारया:Saharya:6|सिनौढिया:Sanaurhiya|सांसिया:Sansiya|शिल्पकार:Shilpkar|तुरैहा:Turaiha', SCN);
+C.ST = L3('भोटिया:Bhotia|बुक्सा:Buksa|जौनसारी:Jaunsari|राजी:Raji|थारू:Tharu|गोंड, धुरिया, नायक, ओझा, पठारी, राजगोंड:Gond Dhuria Nayak Ojha Pathari Raj Gond:1|खरवार, खैरवार:Kharwar Khairwar:2|सहारया:Saharya:3|पराहिया:Parahiya:4|बैगा:Baiga:4|पंखा, पनिका:Pankha Panika:5|अगरिया:Agariya:4|पटारी:Patari:4|चेरो:Chero:6|भुइंया, भुनिया:Bhuiya Bhuinya:4', STN);
+
+/* English aliases for Latin-letter search (most words are matched automatically by sound) */
+C.ALIAS = {
+  MT: { '165': 'english angrezi', '19': 'hindi', '15': 'urdu', '12': 'bengali bangla', '8': 'punjabi panjabi', '6': 'nepali' },
+  CTY: { '69': 'usa america amrika', '71': 'uk england britain london', '72': 'uae dubai emirates', '65': 'saudi arab', '61': 'nepal', '43': 'bangladesh', '63': 'pakistan' },
+};
+/* Seed suggestions for free-text answers (learned values from your own entries are added automatically) */
+C.SEED = {
+  occ: ['किसान (स्वयं की खेती)~farmer', 'खेतिहर मजदूर~farm labour labourer', 'दिहाड़ी मजदूर~daily labour labourer', 'राजमिस्त्री~mason', 'निर्माण मजदूर~construction labour', 'बढ़ई~carpenter', 'दर्जी~tailor', 'सिलाई-कढ़ाई', 'दुकानदार~shopkeeper', 'किराना दुकानदार~grocery shopkeeper', 'सब्जी विक्रेता~vegetable seller', 'फल विक्रेता~fruit seller', 'फेरी वाला', 'ड्राइवर', 'ई-रिक्शा चालक', 'ऑटो चालक', 'ट्रक ड्राइवर', 'शिक्षक~teacher', 'प्राथमिक शिक्षक~teacher primary', 'मदरसा शिक्षक~teacher', 'इमाम', 'डॉक्टर', 'नर्स', 'आशा कार्यकर्ता', 'आंगनवाड़ी कार्यकर्ता', 'सफाई कर्मचारी~sweeper', 'चौकीदार~watchman', 'सुरक्षा गार्ड', 'नाई~barber', 'इलेक्ट्रीशियन', 'प्लंबर', 'वेल्डर', 'मैकेनिक', 'मोबाइल रिपेयर', 'पेंटर', 'हलवाई', 'रसोइया~cook', 'कसाई~butcher', 'बुनकर~weaver', 'कारीगर', 'ठेकेदार', 'क्लर्क', 'कंप्यूटर ऑपरेटर', 'सेल्समैन', 'पुलिस कांस्टेबल~police', 'सैनिक~army soldier', 'पशुपालक (दूध)~dairy milk cattle', 'मुर्गी पालक', 'ईंट भट्ठा मजदूर', 'चीनी मिल मजदूर', 'घरेलू कामगार~domestic maid'],
+  ind: ['गन्ने की खेती~sugarcane farming', 'गेहूँ-धान की खेती~wheat paddy farming', 'चीनी मिल~sugar mill', 'ईंट भट्ठा~brick kiln', 'भवन निर्माण~construction building', 'सड़क निर्माण~road construction', 'किराना दुकान~kirana grocery shop', 'कपड़ा दुकान~cloth shop', 'सब्जी मंडी', 'प्राथमिक विद्यालय~primary school', 'निजी विद्यालय~private school', 'मदरसा', 'मस्जिद', 'सरकारी अस्पताल~hospital', 'निजी क्लिनिक~clinic', 'बैंक', 'परिवहन (सवारी)', 'माल ढुलाई', 'डेयरी/दूध~dairy milk', 'मुर्गी फार्म~poultry farm', 'होटल/ढाबा~hotel dhaba', 'मिठाई की दुकान', 'मीट की दुकान', 'सिलाई की दुकान', 'मोबाइल दुकान', 'आरा मशीन', 'फर्नीचर कारखाना', 'गृह उद्योग', 'नगर पालिका~municipality', 'पुलिस विभाग', 'रेलवे~railway', 'सेना~army'],
+  vil: ['स्योहारा', 'धामपुर', 'बिजनौर', 'नगीना', 'नजीबाबाद', 'नहटौर', 'चांदपुर', 'नूरपुर', 'शेरकोट', 'अफजलगढ़', 'मुरादाबाद', 'ठाकुरद्वारा', 'कांठ', 'अमरोहा', 'काशीपुर', 'रामपुर', 'मेरठ', 'दिल्ली', 'नोएडा', 'गाजियाबाद', 'देहरादून', 'हरिद्वार'],
+};
+
+'use strict';
+/* =================== utilities =================== */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const filled = (v) => v !== undefined && v !== null && v !== '' && !(Array.isArray(v) && !v.length);
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const pad2 = (c) => (/^\d$/.test(String(c)) ? '0' + c : String(c ?? ''));
+const lab = (list, c) => { const x = list.find(o => o[0] === String(c)); return x ? x[1] : ''; };
+const withCode = (list, c) => filled(c) ? `${lab(list, c) || ''} (${c})` : '';
+const today = () => new Date().toISOString().slice(0, 10);
+function toast(msg, ms = 2200) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('show'), ms); }
+const READY_RECKONER_BASE = 2026; // manual ready-reckoner: age 0 → 2026
+
+/* =================== storage (IndexedDB) =================== */
+const DB = {
+  db: null,
+  open() { return new Promise((res, rej) => { const r = indexedDB.open('census2027-notebook', 1); r.onupgradeneeded = () => { const d = r.result; d.createObjectStore('hh', { keyPath: 'id' }); d.createObjectStore('blocks', { keyPath: 'id' }); d.createObjectStore('meta'); }; r.onsuccess = () => { this.db = r.result; res(); }; r.onerror = () => rej(r.error); }); },
+  all(st) { return new Promise((res, rej) => { const q = this.db.transaction(st).objectStore(st).getAll(); q.onsuccess = () => res(q.result); q.onerror = () => rej(q.error); }); },
+  get(st, k) { return new Promise((res, rej) => { const q = this.db.transaction(st).objectStore(st).get(k); q.onsuccess = () => res(q.result); q.onerror = () => rej(q.error); }); },
+  put(st, v, k) { return new Promise((res, rej) => { const tx = this.db.transaction(st, 'readwrite'); k === undefined ? tx.objectStore(st).put(v) : tx.objectStore(st).put(v, k); tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error); }); },
+};
+
+/* =================== state =================== */
+const S = { blocks: [], hhs: [], meta: {}, route: { v: 'home' }, memId: null, dirty: new Set(), filter: 'all', q: '' };
+const me = () => S.meta.me?.name || '';
+const block = () => S.blocks.find(b => b.id === S.meta.curBlock && !b.f._del) || S.blocks.find(b => !b.f._del);
+const curHH = () => S.hhs.find(h => h.id === S.route.id && !h.f._del);
+const newEnt = (f = {}) => { const e = { id: uid(), f: {}, m: {} }; for (const k in f) setF(e, k, f[k], true); return e; };
+
+function setF(ent, k, v, quiet) {
+  if (JSON.stringify(ent.f[k]) === JSON.stringify(v)) return;
+  ent.f[k] = v; ent.m[k] = [Date.now(), me() || '?'];
+  if (!quiet) markDirty();
+}
+function markDirty() {
+  const h = curHH(); if (h) S.dirty.add('hh:' + h.id);
+  if (S.route.v === 'block' || S.route.v === 'setup') S.dirty.add('b:' + S.route.bid);
+  clearTimeout(markDirty.t); markDirty.t = setTimeout(flush, 350);
+}
+async function flush() {
+  const items = [...S.dirty]; S.dirty.clear();
+  for (const it of items) {
+    const [t, id] = it.split(':');
+    if (t === 'hh') { const h = S.hhs.find(x => x.id === id); if (h) { h.ts = Date.now(); await DB.put('hh', h); } }
+    if (t === 'b') { const b = S.blocks.find(x => x.id === id); if (b) await DB.put('blocks', b); }
+  }
+}
+const saveMeta = () => DB.put('meta', S.meta, 'meta');
+const saveHH = (h) => DB.put('hh', h);
+const saveBlock = (b) => DB.put('blocks', b);
+
+/* =================== model helpers =================== */
+const mems = (hh) => hh.members.filter(m => !m.f._del).sort((a, b) => (a.f._ord || 0) - (b.f._ord || 0));
+const serial = (hh, id) => mems(hh).findIndex(m => m.id === id) + 1;
+const memById = (hh, id) => hh.members.find(m => m.id === id && !m.f._del);
+const head = (hh) => mems(hh)[0];
+const ageNum = (m) => (filled(m.f.age) ? +m.f.age : null);
+const ageLT = (m, n) => ageNum(m) !== null && ageNum(m) < n;
+const isF = (m) => m.f.sex === '2';
+const in_ = (v, arr) => arr.includes(String(v));
+const workerOther = (m) => in_(m.f.w18, ['1', '2', '3']) && in_(m.f.w19, ['3', '4', '5', '6', '7', '8']);
+function calcAge(d, mo, y) {
+  const ref = S.meta.refDate ? new Date(S.meta.refDate) : new Date();
+  d = +d; mo = +mo; y = +y; if (!d || !mo || !y || y < 1890) return null;
+  const dt = new Date(y, mo - 1, d); if (dt.getMonth() !== mo - 1 || dt > ref) return null;
+  let a = ref.getFullYear() - y; if (ref.getMonth() < mo - 1 || (ref.getMonth() === mo - 1 && ref.getDate() < d)) a--; return a;
+}
+const placeDone = (f, p, allowHere) => {
+  const t = f[p + '_t']; if (!t) return false;
+  if (t === 'here' || t === 'cur' || t === 'head') return true;
+  if (t === 'in') return filled(f[p + '_st']) && (f[p + '_st'] !== 'X' || filled(f[p + '_stx']));
+  if (t === 'out') return filled(f[p + '_c']) || filled(f[p + '_c_n']);
+  return false;
+};
+const personDone = (f, p, full) => {
+  if (filled(f[p + '_id']) && f[p + '_id'] !== 'OUT') return true;
+  if (!filled(f[p + '_nm'])) return false;
+  if (!full) return true;
+  return filled(f[p + '_rg']) && placeDone(f, p + '_pl');
+};
+
+/* Questions: vis (applicable?) / done (answered?) / why (reason when not applicable) */
+const Q = {
+  1: { t: 'व्यक्ति का नाम', d: f => filled(f.name) },
+  2: { t: 'मुखिया से संबंध', d: f => filled(f.rel) },
+  3: { t: 'लिंग', d: f => filled(f.sex) },
+  4: { t: 'जन्म तिथि और आयु (पूर्ण वर्ष)', d: f => filled(f.age) },
+  5: { t: 'वर्तमान वैवाहिक स्थिति', d: f => filled(f.mar) },
+  6: { t: 'विवाह के समय आयु', v: m => filled(m.f.mar) && m.f.mar !== '1', why: 'अविवाहित', d: f => filled(f.mage) },
+  7: { t: 'पति/पत्नी का नाम', v: m => m.f.mar === '2', why: 'केवल वर्तमान में विवाहित', d: f => personDone(f, 'sp') },
+  8: { t: 'घोषित राष्ट्रीयता', d: f => f.nat === '1' || (f.nat === '2' && (filled(f.nat_c) || filled(f.nat_c_n))) },
+  9: { t: 'धर्म', d: f => filled(f.relg) && (f.relg !== 'O' || filled(f.relg_o)) },
+  10: { t: 'अनुसूचित जाति / अनुसूचित जनजाति / जाति', d: f => {
+      const scAsk = in_(f.relg, ['1', '4', '5']);
+      if (scAsk && !filled(f.sc)) return false; if (!filled(f.st)) return false;
+      if (f.sc === '1' && scAsk && !(filled(f.sc_c) || filled(f.sc_n))) return false;
+      if (f.st === '1' && !(filled(f.st_c) || filled(f.st_n))) return false;
+      const neither = !(scAsk && f.sc === '1') && f.st !== '1';
+      if (neither) return filled(f.caste_o) && (f.caste_o !== 'name' || filled(f.caste_n));
+      return true; } },
+  11: { t: 'पिता का विवरण', d: f => personDone(f, 'fa', true) },
+  12: { t: 'माता का विवरण', d: f => personDone(f, 'mo', true) },
+  13: { t: 'दिव्यांगता', d: f => f.dis === '2' || (f.dis === '1' && filled(f.dis_t)) },
+  14: { t: 'मातृभाषा एवं अन्य भाषाएँ', d: f => filled(f.mt) || filled(f.mt_n) },
+  15: { t: 'साक्षरता एवं डिजिटल साक्षरता', v: m => !ageLT(m, 7), why: '7 वर्ष से कम आयु', d: f => f.lit === '2' || (f.lit === '1' && filled(f.dlit)) },
+  16: { t: 'शैक्षणिक संस्थान में शिक्षा की स्थिति', d: f => filled(f.e16) },
+  17: { t: 'उच्चतम शिक्षा स्तर तथा विषय', v: m => m.f.lit === '1', why: 'केवल साक्षर हेतु', d: f => filled(f.e17a) && (!(+f.e17a >= 11) || filled(f.e17b)) },
+  18: { t: 'पिछले वर्ष कभी काम किया?', d: f => filled(f.w18) },
+  19: { t: 'आर्थिक गतिविधि की श्रेणी', v: m => in_(m.f.w18, ['1', '2', '3']), why: 'प्र.18 में 1–3 हेतु', d: f => filled(f.w19) },
+  20: { t: 'व्यवसाय', v: workerOther, why: 'प्र.19 में 3–8 हेतु', d: f => filled(f.occ) },
+  21: { t: 'उद्योग, व्यापार या सेवा का स्वरूप', v: workerOther, why: 'प्र.19 में 3–8 हेतु', d: f => filled(f.ind) },
+  22: { t: 'कर्मी का वर्ग', v: workerOther, why: 'प्र.19 में 3–8 हेतु', d: f => filled(f.c22) },
+  23: { t: 'गैर-आर्थिक गतिविधि', v: m => in_(m.f.w18, ['2', '3', '4']), why: 'प्र.18 में 2, 3, 4 हेतु', d: f => filled(f.n23) },
+  24: { t: 'काम की तलाश में / उपलब्ध?', v: m => in_(m.f.w18, ['2', '3', '4']), why: 'प्र.18 में 2, 3, 4 हेतु', d: f => filled(f.s24) },
+  25: { t: 'कार्यस्थल तक यात्रा', v: workerOther, why: 'प्र.19 में 3–8 हेतु', d: f => filled(f.m25) && (f.m25 === '0' || filled(f.km25)) },
+  26: { t: 'जन्म स्थान', d: f => placeDone(f, 'b26') },
+  27: { t: 'पूर्व निवास स्थान', d: f => placeDone(f, 'p27') && (f.p27_t === 'here' || filled(f.p27_ru)) },
+  28: { t: 'स्थान परिवर्तन का कारण', v: m => filled(m.f.p27_t) && m.f.p27_t !== 'here', why: 'जन्म से यहीं', d: f => filled(f.r28) },
+  29: { t: 'स्थान परिवर्तन के बाद यहाँ रहने की अवधि (वर्ष)', v: m => filled(m.f.p27_t) && m.f.p27_t !== 'here', why: 'जन्म से यहीं', d: f => filled(f.d29) },
+  30: { t: 'स्थायी निवास का पता', d: f => placeDone(f, 'pm') },
+  31: { t: 'वर्तमान में जीवित संतानें', v: m => isF(m) && in_(m.f.mar, ['2', '3', '4', '5']), why: 'केवल कभी-विवाहित महिलाएँ', d: f => filled(f.c31d) && filled(f.c31s) },
+  32: { t: 'कभी जीवित जन्मी संतानें', v: m => isF(m) && in_(m.f.mar, ['2', '3', '4', '5']), why: 'केवल कभी-विवाहित महिलाएँ', d: f => filled(f.c32d) && filled(f.c32s) },
+  33: { t: 'पिछले 1 वर्ष में जीवित जन्म', v: m => isF(m) && m.f.mar === '2', why: 'केवल वर्तमान में विवाहित महिलाएँ', d: f => filled(f.c33d) && filled(f.c33s) },
+  34: { t: 'कोविड-19 टीकाकरण', d: f => f.cov === '2' || (f.cov === '1' && placeDone(f, 'cv')) },
+  35: { t: 'बैंक खातों की कुल संख्या', d: f => filled(f.bank) },
+  36: { t: 'मोबाइल नंबर', d: f => f.mob_a === '2' || (f.mob_a === '1' && filled(f.mob)) },
+  37: { t: 'आधार नंबर', d: f => f.adh_a === '2' || (f.adh_a === '1' && filled(f.adh)) },
+  38: { t: 'मतदाता पहचान पत्र (EPIC)', v: m => !ageLT(m, 18), why: '18 वर्ष से कम', d: f => f.ep_a === '2' || (f.ep_a === '1' && filled(f.epic)) },
+  39: { t: 'भारतीय पासपोर्ट', d: f => f.pp_a === '2' || (f.pp_a === '1' && filled(f.pp)) },
+  40: { t: 'ड्राइविंग लाइसेंस', v: m => !ageLT(m, 16), why: '16 वर्ष से कम', d: f => filled(f.dl) },
+};
+const qVis = (n, m) => (Q[n].v ? Q[n].v(m) : true);
+function progress(m) { let vis = 0, done = 0; const miss = []; for (let n = 1; n <= 40; n++) { if (!qVis(n, m)) continue; vis++; if (Q[n].d(m.f)) done++; else miss.push(n); } return { vis, done, miss }; }
+function hhStatus(hh) {
+  const ms = mems(hh); if (hh.f.entered === '1') return ['ent', 'दर्ज ✓'];
+  if (!ms.length) return ['new', 'शुरू नहीं'];
+  const all = ms.every(m => { const p = progress(m); return p.done === p.vis; });
+  return all && hh.f.cnt_ok === String(ms.length) ? ['done', 'पूर्ण'] : ['part', 'अधूरा'];
+}
+
+/* =================== form widgets =================== */
+// data-e: m = member, h = household, b = block
+function chips(k, opts, ent, { e = 'm', code = true, cls = '' } = {}) {
+  const v = ent.f[k];
+  return `<div class="chips ${cls}">${opts.map(([c, l]) => `<button type="button" class="chip${String(v) === String(c) ? ' on' : ''}" data-set data-e="${e}" data-k="${k}" data-v="${esc(c)}">${esc(l)}${code && c !== 'O' ? ` <i>${esc(c)}</i>` : ''}</button>`).join('')}</div>`;
+}
+function inp(k, ent, { e = 'm', ph = '', num = false, max = '', rr = false, cls = '', up = false, type = 'text', sug = '' } = {}) {
+  return `<input type="${type}" class="${cls}" data-e="${e}" data-k="${k}"${sug ? ` data-sug="${sug}" autocapitalize="off" autocorrect="off" spellcheck="false"` : ''}${num ? ' inputmode="numeric" data-num' : ''}${max ? ` maxlength="${max}"` : ''}${rr ? ' data-rr' : ''}${up ? ' data-up autocapitalize="characters"' : ''} placeholder="${esc(ph)}" value="${esc(ent.f[k] ?? '')}" autocomplete="off">`;
+}
+function sel(k, opts, ent, { e = 'm', ph = '— चुनें —', other = false } = {}) {
+  const v = String(ent.f[k] ?? '');
+  return `<select data-e="${e}" data-k="${k}" data-rr><option value="">${ph}</option>${opts.map(([c, l]) => `<option value="${esc(c)}"${v === String(c) ? ' selected' : ''}>${esc(l)} — ${esc(pad2(c))}</option>`).join('')}${other ? `<option value="X"${v === 'X' ? ' selected' : ''}>अन्य — कोड/नाम लिखें</option>` : ''}</select>`;
+}
+function combo(k, list, ent, { e = 'm', ph = 'हिंदी या English अक्षरों में लिखें, या कोड…', nk = k + '_n' } = {}) {
+  const c = ent.f[k] ?? '', n = ent.f[nk] ?? '';
+  const val = n ? (c ? `${n} — ${c}` : n) : c;
+  return `<input data-e="${e}" data-k="${k}" data-nk="${nk}" data-combo="${list}" placeholder="${esc(ph)}" value="${esc(val)}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">`;
+}
+function resolveCombo(list, text) {
+  text = text.trim(); if (!text) return { c: '', n: '' };
+  const L = C[list];
+  let m = text.match(/—\s*(\d+)\s*$/); if (m) { const x = L.find(o => o[0] === m[1]); if (x) return { c: x[0], n: x[1] }; }
+  if (/^\d+$/.test(text)) { const x = L.find(o => +o[0] === +text); if (x) return { c: x[0], n: x[1] }; }
+  const x = L.find(o => o[1] === text || (o[2] && o[2].toLowerCase() === text.toLowerCase())); if (x) return { c: x[0], n: x[1] };
+  const hits = sugMatch(text, dictFor(list)); if (hits.length === 1 || (hits[0] && hits[0].exact)) return { c: hits[0].c, n: hits[0].d };
+  return { c: '', n: text }; // not in list → keep the name as written (manual rule)
+}
+const lbl = (t) => `<label class="l">${t}</label>`;
+
+function stateDist(p, ent, withVil, vilLabel = 'गाँव/नगर (मोहल्ला) का नाम') {
+  const st = String(ent.f[p + '_st'] ?? ''); const S0 = C.STATES.find(s => s.c === st);
+  let h = lbl('राज्य / संघ राज्य क्षेत्र') + sel(p + '_st', C.STATES.map(s => [s.c, s.n]), ent, { other: true, ph: '— राज्य चुनें —' });
+  if (st === 'X') h += `<div class="grid2"><div>${lbl('राज्य कोड')}${inp(p + '_stx', ent, { num: true, max: 2 })}</div><div>${lbl('राज्य का नाम')}${inp(p + '_stn', ent)}</div></div>`;
+  if (S0) {
+    h += lbl('जिला') + sel(p + '_dt', [...S0.d].sort((a, b) => a[1].localeCompare(b[1], 'hi')), ent, { other: true, ph: '— जिला चुनें —' });
+    if (S0.partial) h += `<div class="hint">इस राज्य के कुछ जिले स्कैन में नहीं थे — न मिले तो "अन्य" चुनें।</div>`;
+  }
+  if ((S0 && ent.f[p + '_dt'] === 'X') || st === 'X') h += `<div class="grid2"><div>${lbl('जिला कोड')}${inp(p + '_dtx', ent, { num: true, max: 2 })}</div><div>${lbl('जिले का नाम')}${inp(p + '_dtn', ent)}</div></div>`;
+  if (withVil) h += lbl(vilLabel) + inp(p + '_vil', ent, { sug: 'vil' });
+  return h;
+}
+function place(p, ent, mode, m, hh) {
+  const t = ent.f[p + '_t'] || '';
+  let opts;
+  if (mode === 'birth') opts = [['here', 'इसी गाँव/नगर में'], ['in', 'भारत में (अन्यत्र)'], ['out', 'भारत के बाहर']];
+  else if (mode === 'prev') opts = [['here', 'जन्म से यहीं'], ['in', 'भारत में (अन्य स्थान से आया)'], ['out', 'भारत के बाहर से आया']];
+  else if (mode === 'perm') opts = [['cur', 'वर्तमान पते के समान'], ...(serial(hh, m.id) === 1 ? [] : [['head', 'मुखिया के समान']]), ['in', 'भारत में अन्य पता'], ['out', 'भारत के बाहर']];
+  else opts = [['in', 'भारत में'], ['out', 'भारत के बाहर']];
+  let h = chips(p + '_t', opts, ent, { code: false });
+  if (t === 'in') {
+    h += stateDist(p, ent, mode !== 'covid', mode === 'perm' ? 'ग. गाँव/नगर' : undefined);
+    if (mode === 'perm') h += lbl('घ. मकान संख्या एवं मोहल्ला') + inp(p + '_addr', ent);
+  }
+  if (t === 'out') h += lbl('देश') + combo(p + '_c', 'CTY', ent, { ph: 'देश का नाम या कोड…' });
+  return h;
+}
+function person(p, m, hh, kind) {
+  const f = m.f, id = f[p + '_id'] || '';
+  const others = mems(hh).filter(x => x.id !== m.id && (kind === 'fa' ? x.f.sex !== '2' : kind === 'mo' ? x.f.sex !== '1' : true));
+  const sug = suggest(kind, m, hh);
+  let h = `<div class="hint">${kind === 'sp' ? 'पति/पत्नी इसी परिवार में हैं तो सदस्य चुनें, वरना नाम लिखें' : 'इसी परिवार में गणना हुई हो तो केवल क्र.सं. — अन्यथा नाम, जन्म तिथि, जन्म स्थान, धर्म (जीवित हों या नहीं)'}</div>`;
+  h += `<div class="chips">${others.map(x => `<button type="button" class="chip${id === x.id ? ' on' : ''}${sug === x.id && id !== x.id ? ' sug' : ''}" data-set data-k="${p}_id" data-v="${x.id}">क्र.${serial(hh, x.id)} ${esc(x.f.name || '(नाम नहीं)')}${sug === x.id && id !== x.id ? ' <i>सुझाव</i>' : ''}</button>`).join('')}<button type="button" class="chip${id === 'OUT' ? ' on' : ''}" data-set data-k="${p}_id" data-v="OUT">परिवार में नहीं / नाम लिखें</button></div>`;
+  if (id && id !== 'OUT' && !memById(hh, id)) h += `<div class="warn">चुना गया सदस्य हटाया जा चुका है — दोबारा चुनें</div>`;
+  if (id === 'OUT') {
+    h += lbl('नाम') + inp(p + '_nm', m, { rr: true, sug: 'names', ph: 'नाम — हिंदी या English अक्षरों में' });
+    const nm = (f[p + '_nm'] || '').trim();
+    if (nm) h += `<div class="row" style="margin-top:6px"><button type="button" class="btn" data-act="mkmem" data-p="${p}">+ "${esc(nm)}" को इस परिवार का सदस्य बनाएँ</button></div>`;
+    if (kind !== 'sp') {
+      h += lbl('जन्म तिथि (DD / MM / YYYY) — जितनी पता हो') + `<div class="row">${inp(p + '_dd', m, { num: true, max: 2, cls: 'sm', ph: 'DD' })}${inp(p + '_dm', m, { num: true, max: 2, cls: 'sm', ph: 'MM' })}${inp(p + '_dy', m, { num: true, max: 4, cls: 'md', ph: 'YYYY' })}</div>`;
+      h += lbl('जन्म स्थान') + place(p + '_pl', m, 'parent', m, hh);
+      h += lbl('धर्म') + chips(p + '_rg', C.RELG, m);
+      if (f[p + '_rg'] === 'O') h += inp(p + '_rgo', m, { ph: 'अन्य धर्म का नाम' });
+    }
+  }
+  return h;
+}
+function suggest(kind, m, hh) {
+  const ms = mems(hh), hd = ms[0], sp = ms.find(x => x.f.rel === '02'); const r = m.f.rel;
+  const male = x => x && x.f.sex === '1', fem = x => x && x.f.sex === '2';
+  if (kind === 'sp') { if (r === '02') return hd?.id; if (r === '01') return sp?.id; }
+  if (r === '03') { const pair = [hd, sp]; const x = kind === 'fa' ? pair.find(male) : pair.find(fem); return x?.id; }
+  if (r === '01') { const p = ms.filter(x => x.f.rel === '12'); const x = kind === 'fa' ? p.find(male) : p.find(fem); return x?.id; }
+  return null;
+}
+const copyHeadBtn = (m, hh, keys, label) => (serial(hh, m.id) > 1 && head(hh) ? `<button type="button" class="btn" style="min-height:38px;padding:4px 10px;font-size:14px" data-act="copyhead" data-keys="${keys}">↺ मुखिया जैसा ${label || ''}</button>` : '');
+
+/* ---------- validation warnings ---------- */
+const VH_D = [[0,1,2,3,4,5,6,7,8,9],[1,2,3,4,0,6,7,8,9,5],[2,3,4,0,1,7,8,9,5,6],[3,4,0,1,2,8,9,5,6,7],[4,0,1,2,3,9,5,6,7,8],[5,9,8,7,6,0,4,3,2,1],[6,5,9,8,7,1,0,4,3,2],[7,6,5,9,8,2,1,0,4,3],[8,7,6,5,9,3,2,1,0,4],[9,8,7,6,5,4,3,2,1,0]];
+const VH_P = [[0,1,2,3,4,5,6,7,8,9],[1,5,7,6,2,8,3,0,9,4],[5,8,0,3,7,9,6,1,4,2],[8,9,1,6,0,4,3,5,2,7],[9,4,5,3,1,2,6,8,7,0],[4,2,8,6,5,7,3,9,0,1],[2,7,9,3,8,0,6,4,1,5],[7,0,4,6,9,1,3,2,5,8]];
+const verhoeff = (s) => { let c = 0; s.split('').reverse().forEach((d, i) => { c = VH_D[c][VH_P[i % 8][+d]]; }); return c === 0; };
+function warnings(n, m, hh) {
+  const f = m.f, w = [];
+  if (n === 4 && filled(f.age) && (+f.age > 120)) w.push('आयु 120 से अधिक?');
+  if (n === 6 && filled(f.mage) && filled(f.age) && +f.mage > +f.age) w.push('विवाह की आयु वर्तमान आयु से अधिक है');
+  if (n === 6 && filled(f.mage) && +f.mage < 10) w.push('विवाह की आयु बहुत कम — जाँच लें');
+  if (n === 31 || n === 32 || n === 33) { /* handled at 33 */ }
+  if (n === 32) { if (+f.c31d > +f.c32d || +f.c31s > +f.c32s) if (filled(f.c32d) && filled(f.c32s)) w.push('जीवित संतानें (31) कभी जन्मी संतानों (32) से अधिक नहीं हो सकतीं'); }
+  if (n === 36 && f.mob_a === '1' && filled(f.mob) && !/^[6-9]\d{9}$/.test(f.mob)) w.push('मोबाइल नंबर 10 अंकों का, 6–9 से शुरू होना चाहिए');
+  if (n === 37 && f.adh_a === '1' && filled(f.adh)) { if (!/^\d{12}$/.test(f.adh)) w.push('आधार 12 अंकों का होना चाहिए'); else if (!verhoeff(f.adh)) w.push('आधार का चेक-अंक मेल नहीं खाता — नंबर दोबारा जाँचें'); }
+  if (n === 38 && f.ep_a === '1' && filled(f.epic) && !/^[A-Z]{3}\d{7}$/i.test(f.epic)) w.push('EPIC प्रायः 3 अक्षर + 7 अंक होता है — जाँच लें');
+  if (n === 39 && f.pp_a === '1' && filled(f.pp) && !/^[A-Z]\d{7}$/i.test(f.pp)) w.push('पासपोर्ट प्रायः 1 अक्षर + 7 अंक होता है — जाँच लें');
+  if (n === 2 && f.rel === '01' && serial(hh, m.id) !== 1) w.push('मुखिया क्र.सं. 1 पर होना चाहिए — क्रम बदलें');
+  if (n === 2 && f.rel === '01' && mems(hh).filter(x => x.f.rel === '01').length > 1) w.push('एक से अधिक सदस्य "मुखिया" चिह्नित हैं');
+  return w.length ? `<div class="warn">⚠ ${w.join('<br>⚠ ')}</div>` : '';
+}
+
+/* ---------- the 40 questions ---------- */
+function qBody(n, m, hh) {
+  const f = m.f;
+  switch (n) {
+    case 1: {
+      let h = inp('name', m, { rr: true, ph: 'पूरा नाम', sug: 'names' });
+      if (serial(hh, m.id) === 1 && hh.f.head0 && hh.f.head0 !== f.name) h += `<div class="row" style="margin-top:6px"><button type="button" class="btn" data-act="usehead0">मकान सूची से: ${esc(hh.f.head0)}</button></div>`;
+      return h;
+    }
+    case 2: return chips('rel', C.REL.filter(r => ['01', '02', '03', '04', '06', '07', '12', '13'].includes(r[0])), m) + sel('rel', C.REL, m, { ph: '— सभी 32 संबंध —' });
+    case 3: return chips('sex', C.SEX, m);
+    case 4: {
+      let h = lbl('4(क) जन्म तिथि — DD / MM / YYYY') + `<div class="row">${inp('dob_d', m, { num: true, max: 2, cls: 'sm', ph: 'DD', rr: true })}${inp('dob_m', m, { num: true, max: 2, cls: 'sm', ph: 'MM', rr: true })}${inp('dob_y', m, { num: true, max: 4, cls: 'md', ph: 'YYYY', rr: true })}</div>`;
+      h += lbl('4(ख) आयु (पूर्ण वर्षों में)') + inp('age', m, { num: true, max: 3, cls: 'md', rr: true });
+      if (f.age_auto === '1') h += `<div class="hint">आयु जन्म तिथि से गणना की गई${S.meta.refDate ? ' (संदर्भ तिथि ' + S.meta.refDate + ')' : ''}।</div>`;
+      else if (filled(f.age) && !filled(f.dob_y)) h += `<div class="hint">रेडी रेकनर: अनुमानित जन्म वर्ष ${READY_RECKONER_BASE - +f.age}</div>`;
+      return h;
+    }
+    case 5: return chips('mar', C.MAR, m);
+    case 6: return inp('mage', m, { num: true, max: 2, cls: 'md', ph: 'वर्ष' });
+    case 7: return person('sp', m, hh, 'sp');
+    case 8: return chips('nat', [['1', 'भारतीय'], ['2', 'अन्य']], m, { code: false }) + (f.nat === '2' ? lbl('देश') + combo('nat_c', 'CTY', m) : '');
+    case 9: return chips('relg', C.RELG, m) + (f.relg === 'O' ? inp('relg_o', m, { ph: 'अन्य धर्म का नाम' }) : '') + copyHeadBtn(m, hh, 'relg,relg_o,sc,sc_c,sc_n,st,st_c,st_n,caste_o,caste_n', '(धर्म + जाति)');
+    case 10: {
+      const scAsk = in_(f.relg, ['1', '4', '5']);
+      let h = '';
+      if (scAsk) {
+        h += lbl('10(क) क्या यह व्यक्ति अनुसूचित जाति (अ.जा.) है?') + chips('sc', C.YN, m);
+        if (f.sc === '1') h += scPick('sc', 'SC', m);
+      } else h += `<div class="hint">10(क) अ.जा. केवल हिंदू, सिख, बौद्ध में${filled(f.relg) ? '' : ' — पहले धर्म (प्र.9) भरें'}।</div>`;
+      h += lbl('10(ख) क्या यह व्यक्ति अनुसूचित जनजाति (अ.ज.जा.) है?') + chips('st', C.YN, m);
+      if (f.st === '1') h += scPick('st', 'ST', m);
+      const neither = !(scAsk && f.sc === '1') && f.st === '2' && (!scAsk || f.sc === '2');
+      if (neither) {
+        h += lbl('10(ग) दोनों में नहीं — जाति') + chips('caste_o', [['name', 'जाति का नाम लिखें'], ['nb', 'नहीं बताना चाहते'], ['none', 'कोई जाति नहीं']], m, { code: false });
+        if (f.caste_o === 'name') h += inp('caste_n', m, { ph: 'जाति का नाम — जैसा बताया जाए', sug: 'caste' });
+      h += `<div class="hint">जैसा बताया जाए वैसा लिखें; किसी को देखकर अनुमान न लगाएँ।</div>`;
+      }
+      return h;
+    }
+    case 11: return person('fa', m, hh, 'fa');
+    case 12: return person('mo', m, hh, 'mo');
+    case 13: {
+      let h = lbl('13(क) क्या कोई दिव्यांगता है?') + chips('dis', C.YN, m);
+      if (f.dis === '1') {
+        const sel_ = f.dis_t || [];
+        h += lbl('13(ख) प्रकार — अधिकतम 3, गंभीरता के क्रम में टैप करें') + `<div class="chips">${C.DIS.map(([c, l]) => { const i = sel_.indexOf(c); return `<button type="button" class="chip${i >= 0 ? ' on' : ''}" data-multi data-k="dis_t" data-v="${c}" data-max="3">${i >= 0 ? `<span class="rk">${i + 1}</span>` : ''}${esc(l)} <i>${c}</i></button>`; }).join('')}</div>`;
+      }
+      return h;
+    }
+    case 14: return lbl('14(क) मातृभाषा') + combo('mt', 'MT', m) + copyHeadBtn(m, hh, 'mt,mt_n', '') + lbl('14(ख) अन्य ज्ञात भाषा 1 (दक्षता के क्रम में)') + combo('l1', 'MT', m) + lbl('14(ग) अन्य ज्ञात भाषा 2') + combo('l2', 'MT', m) + `<div class="hint">सूची में न मिले तो नाम वैसे ही लिखें — कोड खाली रहेगा।</div>`;
+    case 15: return lbl('15(क) साक्षरता (7 वर्ष+)') + chips('lit', C.LIT, m) + (f.lit === '1' ? lbl('15(ख) क्या डिजिटल रूप से साक्षर है?') + chips('dlit', C.YN, m) : '');
+    case 16: return lbl('पढ़ते हैं') + chips('e16', C.E16A, m) + lbl('नहीं पढ़ते') + chips('e16', C.E16B, m);
+    case 17: return lbl('17(क) प्राप्त शिक्षा का उच्चतम स्तर') + sel('e17a', C.E17A, m) + (+f.e17a >= 11 ? lbl('17(ख) संकाय/विषय (कक्षा 11+)') + chips('e17b', C.E17B, m) : '');
+    case 18: return `<div class="hint">सभी से पूछें — अवैतनिक/अंशकालिक काम भी</div>` + chips('w18', C.W18, m);
+    case 19: return chips('w19', C.W19, m);
+    case 20: return `<div class="hint">वास्तविक कार्य का विवरण लिखें</div>` + inp('occ', m, { ph: 'जैसे: shikshak, majdoor, darji…', sug: 'occ' });
+    case 21: return `<div class="hint">कार्यस्थल पर होने वाली गतिविधि लिखें</div>` + inp('ind', m, { ph: 'जैसे: cheeni mil, vidyalay…', sug: 'ind' });
+    case 22: return chips('c22', C.C22, m);
+    case 23: return chips('n23', C.N23, m);
+    case 24: return chips('s24', C.S24, m);
+    case 25: return lbl('25(ख) यात्रा का साधन') + chips('m25', C.M25, m) + (f.m25 !== '0' ? `<div class="grid2"><div>${lbl('25(क) एकतरफा दूरी (कि.मी.)')}${inp('km25', m, { num: true, max: 3 })}</div><div>${lbl('समय (घंटे : मिनट)')}<div class="row">${inp('h25', m, { num: true, max: 2, cls: 'sm', ph: 'घं' })}${inp('mi25', m, { num: true, max: 2, cls: 'sm', ph: 'मि' })}</div></div></div>` : '');
+    case 26: return place('b26', m, 'birth', m, hh);
+    case 27: return lbl('27(क)') + place('p27', m, 'prev', m, hh) + (filled(f.p27_t) && f.p27_t !== 'here' ? lbl('27(ख) स्थान परिवर्तन के समय वह स्थान') + chips('p27_ru', C.RU, m) : '');
+    case 28: return chips('r28', C.R28, m);
+    case 29: return inp('d29', m, { num: true, max: 2, cls: 'md', ph: 'वर्ष' }) + `<div class="hint">1 वर्ष से कम हो तो 00</div>`;
+    case 30: return place('pm', m, 'perm', m, hh);
+    case 31: case 32: case 33: { const k = 'c' + n; return `<div class="grid2"><div>${lbl('पुत्री')}${inp(k + 'd', m, { num: true, max: 2 })}</div><div>${lbl('पुत्र')}${inp(k + 's', m, { num: true, max: 2 })}</div></div>` + (n === 31 ? `<div class="hint">31–33 के उत्तर संबंधित महिला से सीधे लें। कोई नहीं तो 0 लिखें।</div>` : ''); }
+    case 34: return chips('cov', C.YN, m) + (f.cov === '1' ? lbl('34(ख) टीकाकरण का स्थान') + place('cv', m, 'covid', m, hh) : '');
+    case 35: return inp('bank', m, { num: true, max: 2, cls: 'md', ph: 'संख्या' }) + `<div class="hint">केवल खातों की संख्या — खाता नंबर नहीं।</div>`;
+    case 36: return chips('mob_a', C.YN, m) + (f.mob_a === '1' ? inp('mob', m, { num: true, max: 10, ph: '10 अंक', rr: true, type: 'tel' }) : '');
+    case 37: return chips('adh_a', C.YN, m) + (f.adh_a === '1' ? inp('adh', m, { num: true, max: 12, ph: '12 अंक', rr: true }) : '');
+    case 38: return chips('ep_a', C.YN, m) + (f.ep_a === '1' ? inp('epic', m, { up: true, max: 12, ph: 'EPIC नंबर', rr: true }) : '');
+    case 39: return chips('pp_a', C.YN, m) + (f.pp_a === '1' ? inp('pp', m, { up: true, max: 10, ph: 'पासपोर्ट नंबर', rr: true }) : '');
+    case 40: return chips('dl', C.YN, m);
+  }
+  return '';
+}
+const SECTIONS = [['प्र. 1–10', 1, 10], ['11–17 परिवार/भाषा/शिक्षा', 11, 17], ['18–25 कामकाज', 18, 25], ['26–30 जन्म/प्रवास', 26, 30], ['31–40 अन्य', 31, 40]];
+
+/* =================== rendering =================== */
+function render() {
+  const v = S.route.v;
+  if (v !== 'print') $('#print').innerHTML = '';
+  if (!me() || !S.blocks.some(b => !b.f._del)) return renderSetup();
+  if (v === 'hh' && curHH()) return renderHH();
+  if (v === 'settings') return renderSettings();
+  if (v === 'block') return renderBlockEdit();
+  if (v === 'import') return renderImport();
+  if (v === 'print') return renderPrintView();
+  if (v === 'help') return renderHelp();
+  return renderHome();
+}
+function go(route) { flush(); if (route.v === 'hh' && route.id !== S.lastHH) S.memId = null; if (route.v === 'hh') S.lastHH = route.id; history.pushState(route, ''); S.route = route; render(); window.scrollTo(0, 0); }
+window.addEventListener('popstate', e => { flush(); S.route = e.state || { v: 'home' }; render(); });
+
+function renderSetup() {
+  const b = S.blocks.find(x => x.id === S.route.bid) || null;
+  const meE = { f: { name: S.meta.me?.name || '', eid: S.meta.me?.eid || '' } };
+  $('#app').innerHTML = `<div class="top"><h1>जनगणना 2027 — फील्ड नोटबुक<small>पहली बार सेटअप</small></h1></div>
+  <div class="card"><h3>1. आपका नाम (प्रगणक)</h3><div class="mut">हर प्रविष्टि पर यह नाम दर्ज होगा — ताकि पता रहे किसने भरा।</div>
+  ${lbl('नाम')}<input id="su-name" value="${esc(meE.f.name)}" placeholder="जैसे: सोमांशु चौहान">
+  ${lbl('प्रगणक ID / मोबाइल (वैकल्पिक)')}<input id="su-eid" value="${esc(meE.f.eid)}"></div>
+  <div class="card"><h3>2. आपका गणना ब्लॉक</h3><div class="mut">कोड बाद में भी बदल सकते हैं।</div>
+  ${lbl('गणना ब्लॉक कोड (4 अंक)')}<input id="su-eb" inputmode="numeric" maxlength="4">
+  ${lbl('गाँव/नगर का नाम')}<input id="su-vil"></div>
+  <button class="btn p w" data-act="setup">शुरू करें</button>
+  <p class="mut">यह आधिकारिक जनगणना ऐप नहीं है। डेटा केवल इसी फोन में रहता है — कोई सर्वर नहीं।</p>`;
+}
+
+function renderHome() {
+  const b = block(); const all = S.hhs.filter(h => !h.f._del && h.f.blockId === b.id);
+  const st = { new: 0, part: 0, done: 0, ent: 0 }; all.forEach(h => st[hhStatus(h)[0]]++);
+  const q = S.q.trim().toLowerCase();
+  let list = all.filter(h => S.filter === 'all' || hhStatus(h)[0] === S.filter);
+  if (q) { const lat = /^[a-z\s]+$/.test(q), qv = vk(q), qs = sk(q);
+    list = list.filter(h => { const txt = [h.f.bhawan, h.f.chs, h.f.hno, h.f.makan, h.f.mohalla, h.f.head0, ...mems(h).map(m => m.f.name)].join(' ');
+      if (txt.toLowerCase().includes(q)) return true; if (!lat || !qv) return false;
+      return roman(txt).split(/\s+/).some(w => vk(w).startsWith(qv) || (qs.length >= 2 && sk(w).startsWith(qs))); }); }
+  const num = x => parseInt(x, 10) || 0;
+  list.sort((a, b2) => num(a.f.chs) - num(b2.f.chs) || num(a.f.hno) - num(b2.f.hno) || num(a.f.bhawan) - num(b2.f.bhawan));
+  const lb = S.meta.lastBackup; const days = lb ? Math.floor((Date.now() - lb) / 864e5) : null;
+  const hasData = S.hhs.some(h => mems(h).length);
+  const bk = hasData && (days === null || days >= 1) ? `<div class="banner${days === null || days >= 2 ? ' bad' : ''}">${days === null ? 'अभी तक कोई बैकअप नहीं लिया।' : `आखिरी बैकअप ${days} दिन पहले।`} फोन खराब/रीसेट होने पर डेटा जा सकता है.<div class="row" style="margin-top:8px"><button class="btn p" data-act="backup">अभी बैकअप लें</button></div></div>` : '';
+  const ownerNote = b.f.owner && b.f.owner !== me() ? `<div class="banner">आप <b>${esc(b.f.owner)}</b> के ब्लॉक में मदद कर रहे हैं। काम के बाद "शेयर" से फ़ाइल उन्हें भेजें।</div>` : '';
+  $('#app').innerHTML = `<div class="top"><h1>फील्ड नोटबुक<small>${esc(me())} · ब्लॉक ${esc(b.f.eb || '—')} ${esc(b.f.vil || '')}</small></h1><button data-go="print" aria-label="प्रिंट">🖨</button><button data-go="settings" aria-label="मेन्यू">☰</button></div>
+  ${S.blocks.filter(x => !x.f._del).length > 1 ? `<div class="card" style="padding:10px">${lbl('ब्लॉक')}<select data-act="pickblock">${S.blocks.filter(x => !x.f._del).map(x => `<option value="${x.id}"${x.id === b.id ? ' selected' : ''}>${esc(x.f.eb || '—')} · ${esc(x.f.vil || '')} · मालिक: ${esc(x.f.owner || '')}</option>`).join('')}</select></div>` : ''}
+  ${ownerNote}${bk}
+  <div class="stats" style="margin-top:12px"><div><b>${all.length}</b><span>कुल परिवार</span></div><div><b>${st.part + st.new}</b><span>बाकी</span></div><div><b>${st.done}</b><span>पूर्ण</span></div><div><b>${st.ent}</b><span>ऐप में दर्ज</span></div></div>
+  <div class="card" style="padding:10px"><input id="search" type="search" placeholder="खोजें: मकान सं., नाम, मोहल्ला…" value="${esc(S.q)}">
+  <div class="chips" style="margin-top:8px">${[['all', 'सभी'], ['new', 'शुरू नहीं'], ['part', 'अधूरे'], ['done', 'पूर्ण'], ['ent', 'दर्ज']].map(([k, l]) => `<button class="chip${S.filter === k ? ' on' : ''}" data-filter="${k}">${l}</button>`).join('')}</div></div>
+  <div id="hhlist">${list.map(hhCard).join('') || `<div class="card mut">${all.length ? 'कोई परिवार नहीं मिला।' : 'अभी कोई परिवार नहीं। नीचे "+ परिवार" दबाएँ या मेन्यू ☰ → "मकान सूची आयात" से पहले से भरी सूची डालें।'}</div>`}</div>
+  <button class="btn p fab" data-act="newhh">+ परिवार</button>`;
+}
+function hhCard(h) {
+  const [cls, txt] = hhStatus(h); const ms = mems(h); const hd = ms[0];
+  let d = 0, v = 0; ms.forEach(m => { const p = progress(m); d += p.done; v += p.vis; });
+  return `<button class="hh" data-open="${h.id}"><div class="h1">${esc(hd?.f.name || h.f.head0 || '(मुखिया का नाम नहीं)')}<span class="pill ${cls}">${txt}</span></div>
+  <div class="mut">भवन ${esc(h.f.bhawan || '—')} · ज.मकान सं. ${esc(h.f.chs || '—')} · परि.क्र. ${esc(h.f.hno || '—')}${h.f.mohalla ? ' · ' + esc(h.f.mohalla) : ''}</div>
+  <div class="mut">${ms.length} सदस्य${v ? ` · ${Math.round(d * 100 / v)}% भरा` : ''}</div></button>`;
+}
+
+function renderHH() {
+  const hh = curHH(); const ms = mems(hh);
+  if (S.memId && !memById(hh, S.memId)) S.memId = null;
+  const m = S.memId ? memById(hh, S.memId) : null;
+  const title = `भवन ${hh.f.bhawan || '—'} · म.सं. ${hh.f.chs || '—'} · परि.${hh.f.hno || '—'}`;
+  $('#app').innerHTML = `<div class="top"><button data-back aria-label="वापस">←</button><h1>${esc(ms[0]?.f.name || hh.f.head0 || 'नया परिवार')}<small>${esc(title)}</small></h1><button data-act="printhh" aria-label="प्रिंट">🖨</button></div>
+  <div id="strip" class="strip">${stripHTML(hh)}</div>
+  <div id="main">${m ? memberHTML(m, hh) : hhFormHTML(hh)}</div>
+  <div class="foot noprint"><div class="in">${m ? `<button class="btn" data-mem="">परिवार विवरण</button><button class="btn p" data-act="nextmem">अगला सदस्य →</button>` : `<button class="btn ok" data-act="finish">परिवार पूर्ण करें</button>`}</div></div>`;
+  refreshNames();
+}
+function stripHTML(hh) {
+  const ms = mems(hh);
+  return `<button class="mchip${!S.memId ? ' on' : ''}" data-mem=""><b>🏠 परिवार</b><span>${hhStatus(hh)[1]}</span></button>` +
+    ms.map((x, i) => { const p = progress(x); const d = p.done === p.vis; return `<button class="mchip${S.memId === x.id ? ' on' : ''}${d ? ' done' : ''}" data-mem="${x.id}"><b>${i + 1}. ${esc(x.f.name || '(नाम)')}</b><span>${d ? '✓ पूर्ण' : `${p.done}/${p.vis}`}</span></button>`; }).join('') +
+    `<button class="mchip add" data-act="addmem">+ सदस्य</button>`;
+}
+function hhFormHTML(hh) {
+  const b = S.blocks.find(x => x.id === hh.f.blockId) || block(); const ms = mems(hh);
+  const e = 'h';
+  return `<div class="card"><h3>परिवार विवरण</h3>
+  <div class="hint">सबसे पहले पूछें: क्या स्व-गणना की है? हो तो SE ID लिखें।</div>
+  ${lbl('स्व-गणना ID (हो तो)')}${inp('sid', hh, { e, up: true, ph: 'P…' })}
+  <div class="grid2"><div>${lbl('भवन संख्या')}${inp('bhawan', hh, { e })}</div><div>${lbl('जनगणना मकान सं.')}${inp('chs', hh, { e, num: true, max: 4 })}</div>
+  <div>${lbl('परिवार क्रमांक')}${inp('hno', hh, { e, num: true, max: 4 })}</div><div>${lbl('मकान संख्या')}${inp('makan', hh, { e })}</div></div>
+  ${lbl('मोहल्ला/बस्ती')}${inp('mohalla', hh, { e })}
+  ${lbl('परिवार का प्रकार')}${chips('htype', C.HTYPE, hh, { e })}
+  ${hh.f.htype === '2' ? lbl('संस्थागत परिवार का विवरण') + inp('inst', hh, { e }) : ''}
+  ${lbl('मकान सूची के अनुसार मुखिया (पहले से)')}${inp('head0', hh, { e, rr: true, sug: 'names' })}
+  <div class="mut" style="margin-top:8px">ब्लॉक: ${esc(b.f.eb || '—')} · ${esc(b.f.vil || '')}</div></div>
+  <div class="card"><h3>सदस्य (${ms.length})</h3>
+  ${ms.length ? ms.map((x, i) => { const p = progress(x); return `<div class="row" style="border-bottom:1px solid var(--line);padding:6px 0"><button class="chip" style="flex:1" data-mem="${x.id}">${i + 1}. ${esc(x.f.name || '(नाम)')} <i>${withCode(C.REL, x.f.rel)} · ${p.done}/${p.vis}</i></button><button class="chip" data-act="mvup" data-id="${x.id}" aria-label="ऊपर">▲</button><button class="chip" data-act="mvdn" data-id="${x.id}" aria-label="नीचे">▼</button></div>`; }).join('') : `<div class="mut">अभी कोई सदस्य नहीं.</div>`}
+  ${!ms.length && hh.f.head0 ? `<button class="btn p w" style="margin-top:8px" data-act="addhead">+ मुखिया जोड़ें: ${esc(hh.f.head0)}</button>` : ''}
+  <div class="hint">क्रम: मुखिया 1 पर; फिर पति/पत्नी, अविवाहित बच्चे… असंबंधित (नौकर, आगंतुक) अंत में।</div>
+  <div class="row" style="margin-top:8px"><button class="btn w" data-act="addmem">+ सदस्य जोड़ें</button></div></div>
+  <div class="card"><h3>आधिकारिक ऐप</h3><div class="chips"><button class="chip${hh.f.entered === '1' ? ' on' : ''}" data-set data-toggle data-e="h" data-k="entered" data-v="1">✓ आधिकारिक ऐप में दर्ज कर दिया</button></div>
+  <div class="who">अंतिम बदलाव: ${hh.ts ? new Date(hh.ts).toLocaleString('hi-IN') : '—'}</div></div>
+  <div class="card"><button class="btn bad w" data-act="delhh">यह परिवार हटाएँ</button></div>`;
+}
+function memberHTML(m, hh) {
+  const p = progress(m); const sn = serial(hh, m.id);
+  let h = `<div class="sec">${SECTIONS.map(([t, a]) => `<button data-jump="q${a}">${t}</button>`).join('')}</div>`;
+  h += `<div class="card" style="padding:10px 12px"><b>क्र.सं. ${sn}: ${esc(m.f.name || '(नाम)')}</b> <span class="mut">${p.done}/${p.vis} प्रश्न</span>${p.miss.length ? `<div class="mut">बाकी: ${p.miss.join(', ')}</div>` : '<div style="color:var(--ok);font-weight:700">✓ सभी लागू प्रश्न भरे</div>'}</div>`;
+  for (let n = 1; n <= 40; n++) {
+    if (n === 11) h += `<h3 style="margin:18px 0 4px">पृष्ठ 3–4: प्रश्न 11–40</h3>`;
+    if (!qVis(n, m)) { h += `<div class="na" id="q${n}">${n}. ${Q[n].t} — लागू नहीं (${Q[n].why})</div>`; continue; }
+    const ok = Q[n].d(m.f); const who = lastWho(m, n);
+    h += `<section class="q${ok ? ' ok' : ''}" id="q${n}"><h4><span class="n">${n}</span><span class="t">${Q[n].t}</span>${ok ? '✓' : ''}</h4>${qBody(n, m, hh)}${warnings(n, m, hh)}${who}</section>`;
+  }
+  h += `<div class="card"><button class="btn bad w" data-act="delmem">इस सदस्य को हटाएँ</button></div>`;
+  return h;
+}
+const QKEYS = { 1: ['name'], 2: ['rel'], 3: ['sex'], 4: ['age', 'dob_y'], 5: ['mar'], 9: ['relg'], 14: ['mt', 'mt_n'], 36: ['mob'], 37: ['adh'] };
+function lastWho(m, n) {
+  const ks = QKEYS[n]; if (!ks) return '';
+  const t = ks.map(k => m.m[k]).filter(Boolean).sort((a, b) => b[0] - a[0])[0];
+  return t && t[1] !== me() ? `<div class="who">भरा: ${esc(t[1])}</div>` : '';
+}
+
+/* ---------- settings / blocks / import / help ---------- */
+function renderSettings() {
+  const blocks = S.blocks.filter(b => !b.f._del);
+  $('#app').innerHTML = `<div class="top"><button data-back>←</button><h1>मेन्यू</h1></div>
+  <div class="card"><h3>बैकअप और शेयर</h3>
+  <div class="mut">फ़ाइल में इस ब्लॉक के सभी परिवार होते हैं। दूसरे फोन पर "मर्ज करें" से जोड़ें — कुछ भी मिटता नहीं, हर उत्तर का नया वाला रखा जाता है।</div>
+  <div class="row" style="margin-top:8px"><button class="btn p" data-act="backup">फोन में बैकअप सेव करें</button><button class="btn" data-act="share">WhatsApp/ब्लूटूथ से शेयर</button></div>
+  <div class="row" style="margin-top:8px"><label class="btn">मर्ज करें (फ़ाइल चुनें)<input type="file" id="mergefile" accept=".txt,.json,text/plain,application/json" hidden></label><button class="btn" data-act="csv">Excel (CSV)</button></div>
+  <div class="hint">आखिरी बैकअप: ${S.meta.lastBackup ? new Date(S.meta.lastBackup).toLocaleString('hi-IN') : 'कभी नहीं'}</div></div>
+  <div class="card"><h3>प्रिंट / PDF</h3><div class="mut">आधिकारिक ऐप में भरते समय देखने के लिए — उसी क्रम में, कोड सहित।</div><button class="btn w" style="margin-top:8px" data-go="print">प्रिंट शीट खोलें</button></div>
+  <div class="card"><h3>ब्लॉक</h3>${blocks.map(b => `<button class="hh" data-editblock="${b.id}"><b>${esc(b.f.eb || '—')} · ${esc(b.f.vil || '')}</b><div class="mut">मालिक: ${esc(b.f.owner || '')} · ${S.hhs.filter(h => !h.f._del && h.f.blockId === b.id).length} परिवार</div></button>`).join('')}
+  <div class="row"><button class="btn" data-act="newblock">+ नया ब्लॉक (दूसरे प्रगणक का)</button><button class="btn" data-go="import">मकान सूची आयात</button></div></div>
+  <div class="card"><h3>प्रगणक</h3>${lbl('आपका नाम')}<input id="set-name" value="${esc(me())}">${lbl('प्रगणक ID / मोबाइल')}<input id="set-eid" value="${esc(S.meta.me?.eid || '')}">
+  ${lbl('आयु गणना की संदर्भ तिथि (खाली = आज)')}<input id="set-ref" type="date" value="${esc(S.meta.refDate || '')}">
+  <button class="btn p w" style="margin-top:10px" data-act="saveme">सहेजें</button></div>
+  <div class="card"><h3>सुरक्षा</h3><div class="mut">PIN ऐप खोलते समय पूछा जाएगा (3 मिनट बंद रहने पर भी)। यह स्क्रीन लॉक है; फोन का अपना लॉक भी ज़रूर लगाएँ।</div>
+  ${lbl(S.meta.pin ? 'PIN बदलें (खाली छोड़ें = हटाएँ)' : 'नया PIN (4–6 अंक)')}<input id="set-pin" type="password" inputmode="numeric" maxlength="6">
+  <button class="btn w" style="margin-top:8px" data-act="savepin">PIN सहेजें</button>
+  <div class="hint" id="persist"></div></div>
+  <div class="card"><button class="btn w" data-go="help">मदद / कैसे इस्तेमाल करें</button></div>
+  <p class="mut" style="text-align:center">फील्ड नोटबुक v1.1 · आधिकारिक ऐप नहीं</p>`;
+  if (navigator.storage?.persisted) navigator.storage.persisted().then(p => { const el = $('#persist'); if (el) el.textContent = p ? '✓ ब्राउज़र ने स्टोरेज को स्थायी माना है।' : 'स्टोरेज अस्थायी — होम-स्क्रीन पर इंस्टॉल करें और रोज़ बैकअप लें।'; });
+}
+function renderBlockEdit() {
+  const b = S.blocks.find(x => x.id === S.route.bid); if (!b) return go({ v: 'settings' });
+  const e = 'b';
+  $('#app').innerHTML = `<div class="top"><button data-back>←</button><h1>ब्लॉक विवरण<small>लोकेशन — आधिकारिक प्रपत्र जैसा</small></h1></div>
+  <div class="card">${lbl('ब्लॉक का मालिक (प्रगणक)')}${inp('owner', b, { e })}
+  <div class="grid2"><div>${lbl('राज्य (2 अंक)')}${inp('st', b, { e, num: true, max: 2 })}</div><div>${lbl('जिला (2 अंक)')}${inp('dt', b, { e, num: true, max: 2 })}</div>
+  <div>${lbl('उप-जिला (3 अंक)')}${inp('sdt', b, { e, num: true, max: 3 })}</div><div>${lbl('गाँव/नगर कोड')}${inp('vilc', b, { e, num: true, max: 6 })}</div>
+  <div>${lbl('वार्ड (4 अंक)')}${inp('ward', b, { e, num: true, max: 4 })}</div><div>${lbl('गणना ब्लॉक कोड (4 अंक)')}${inp('eb', b, { e, num: true, max: 4 })}</div>
+  <div>${lbl('उप-गणना ब्लॉक (2 अंक)')}${inp('seb', b, { e, num: true, max: 2 })}</div></div>
+  ${lbl('गाँव/नगर का नाम')}${inp('vil', b, { e, sug: 'vil' })}</div>
+  <div class="card"><button class="btn p w" data-act="useblock" data-id="${b.id}">इस ब्लॉक पर काम करें</button></div>
+  <div class="card"><button class="btn bad w" data-act="delblock" data-id="${b.id}">ब्लॉक हटाएँ (परिवारों सहित)</button></div>`;
+}
+function renderImport() {
+  const st = S.imp || (S.imp = { text: '', head: true, map: [] });
+  const rows = parseTable(st.text); const hdr = st.head && rows.length ? rows[0] : null; const data = st.head ? rows.slice(1) : rows;
+  const ncol = Math.max(0, ...rows.map(r => r.length));
+  const FIELDS = [['', '— छोड़ें —'], ['bhawan', 'भवन संख्या'], ['chs', 'जनगणना मकान सं.'], ['hno', 'परिवार क्रमांक'], ['makan', 'मकान संख्या'], ['head0', 'मुखिया का नाम'], ['mohalla', 'मोहल्ला/बस्ती']];
+  if (st.map.length !== ncol) st.map = Array.from({ length: ncol }, (_, i) => guessCol(hdr ? hdr[i] : '', i));
+  const b = block();
+  $('#app').innerHTML = `<div class="top"><button data-back>←</button><h1>मकान सूची आयात<small>ब्लॉक ${esc(b.f.eb || '—')}</small></h1></div>
+  <div class="card"><div class="mut">Excel/Google Sheet से कॉपी करके यहाँ पेस्ट करें, या CSV फ़ाइल चुनें। हर पंक्ति = एक परिवार।</div>
+  <textarea id="imp-text" rows="7" placeholder="भवन सं., जनगणना मकान सं., परिवार क्रमांक, मुखिया का नाम&#10;12, 0034, 0045, रामपाल सिंह">${esc(st.text)}</textarea>
+  <div class="row" style="margin-top:8px"><label class="btn">CSV फ़ाइल चुनें<input type="file" id="imp-file" accept=".csv,.txt,text/csv,text/plain" hidden></label>
+  <label class="row"><input type="checkbox" id="imp-head" style="width:24px;min-height:24px"${st.head ? ' checked' : ''}> पहली पंक्ति शीर्षक है</label></div></div>
+  ${ncol ? `<div class="card"><h3>कौन सा कॉलम क्या है?</h3><div style="overflow-x:auto"><table class="map"><tr>${Array.from({ length: ncol }, (_, i) => `<th><select data-impcol="${i}">${FIELDS.map(([k, l]) => `<option value="${k}"${st.map[i] === k ? ' selected' : ''}>${l}</option>`).join('')}</select></th>`).join('')}</tr>
+  ${hdr ? `<tr>${hdr.map(x => `<td><b>${esc(x)}</b></td>`).join('')}</tr>` : ''}${data.slice(0, 5).map(r => `<tr>${Array.from({ length: ncol }, (_, i) => `<td>${esc(r[i] || '')}</td>`).join('')}</tr>`).join('')}</table></div>
+  <div class="mut" style="margin-top:6px">${data.length} पंक्तियाँ</div>
+  <button class="btn p w" style="margin-top:10px" data-act="doimport">${data.length} परिवार जोड़ें</button></div>` : ''}`;
+}
+function renderHelp() {
+  $('#app').innerHTML = `<div class="top"><button data-back>←</button><h1>मदद</h1></div><div class="card" style="line-height:1.6">
+  <b>रोज़ का काम</b><br>1. परिवार खोलें → स्व-गणना ID पूछें → "+ सदस्य" से सभी सदस्यों के नाम जोड़ें (मुखिया पहले)।<br>2. किसी भी सदस्य पर टैप करके कोई भी प्रश्न कभी भी भरें — हर उत्तर तुरंत सेव होता है।<br>3. जो नहीं पता, छोड़ दें — परिवार सूची में "अधूरा" दिखेगा। बाद में लौटकर भरें।<br>4. अंत में "परिवार पूर्ण करें" — ऐप पूछेगा "क्या कुल सदस्य यही हैं?"<br><br>
+  <b>बैकअप</b>: रोज़ शाम ☰ → "फोन में बैकअप सेव करें"। फ़ाइल Downloads में जाती है।<br><br>
+  <b>दो फोन / मदद करने वाले प्रगणक</b><br>• ब्लॉक का मालिक ☰ → "शेयर" से अपनी फ़ाइल सहायक को भेजे।<br>• सहायक ☰ → "मर्ज करें" से वह फ़ाइल खोले — वही ब्लॉक और मकान सूची उसके फोन में आ जाएगी।<br>• सहायक भरकर "शेयर" से वापस भेजे; मालिक "मर्ज करें"।<br>• हर उत्तर पर भरने वाले का नाम और समय दर्ज रहता है; एक ही उत्तर दोनों ने बदला हो तो नया वाला रहता है और मर्ज रिपोर्ट में दिखता है।<br><br>
+  <b>आधिकारिक ऐप में भरना</b>: 🖨 → प्रिंट शीट। पहले Q1–10 सभी सदस्यों की तालिका, फिर हर सदस्य के Q11–40 — कोड सहित। Chrome "प्रिंट" → "PDF के रूप में सेव" भी कर सकते हैं। भर लेने के बाद परिवार में "आधिकारिक ऐप में दर्ज ✓" दबाएँ।</div>`;
+}
+
+/* =================== print / transfer sheet =================== */
+function placeTxt(f, p) {
+  const t = f[p + '_t']; if (!t) return '';
+  if (t === 'here') return 'यहीं ✓'; if (t === 'cur') return 'वर्तमान पते के समान ✓'; if (t === 'head') return 'मुखिया के समान ✓';
+  if (t === 'out') return `भारत के बाहर: ${f[p + '_c_n'] || ''}${f[p + '_c'] ? ' (' + f[p + '_c'] + ')' : ''}`;
+  const st = f[p + '_st']; const S0 = C.STATES.find(s => s.c === st);
+  const stT = st === 'X' ? `${f[p + '_stn'] || ''} (${pad2(f[p + '_stx'] || '?')})` : S0 ? `${S0.n} (${pad2(st)})` : '';
+  const dt = f[p + '_dt']; const dtT = (dt === 'X' || st === 'X') ? `${f[p + '_dtn'] || ''}${f[p + '_dtx'] ? ' (' + pad2(f[p + '_dtx']) + ')' : ''}` : S0 && dt ? `${lab(S0.d, dt)} (${pad2(dt)})` : '';
+  return `भारत: राज्य ${stT}${dtT ? ', जिला ' + dtT : ''}${f[p + '_vil'] ? ', गाँव/नगर: ' + f[p + '_vil'] : ''}${f[p + '_addr'] ? ', ' + f[p + '_addr'] : ''}`;
+}
+const comboTxt = (f, k) => (f[k + '_n'] || f[k]) ? `${f[k + '_n'] || ''}${f[k] ? ' (' + f[k] + ')' : ''}` : '';
+function personTxt(hh, f, p, full) {
+  const id = f[p + '_id']; if (id && id !== 'OUT') { const x = memById(hh, id); return x ? `इसी परिवार में — क्र.सं. ${serial(hh, id)} (${x.f.name || ''})` : '?'; }
+  if (!f[p + '_nm']) return '';
+  let s = `${f[p + '_nm']}`; if (!full) return s;
+  const dob = [f[p + '_dd'], f[p + '_dm'], f[p + '_dy']].map(x => x || '__').join('-');
+  s += ` · ज.ति. ${dob} · जन्म स्थान: ${placeTxt(f, p + '_pl') || '—'} · धर्म: ${f[p + '_rg'] === 'O' ? 'अन्य: ' + (f[p + '_rgo'] || '') : withCode(C.RELG, f[p + '_rg']) || '—'}`;
+  return s;
+}
+const yn = (f, a, v, mask) => f[a] === '1' ? `हाँ (1) — ${mask && f[v] ? '••••' + String(f[v]).slice(-4) : (f[v] || '')}` : f[a] === '2' ? 'नहीं (2)' : '';
+function q10Txt(f) {
+  const out = [];
+  if (f.sc) out.push(`10क अ.जा.: ${withCode(C.YN, f.sc)}${f.sc === '1' ? ` ${f.sc_n || ''} [${f.sc_c || ''}]` : ''}`);
+  if (f.st) out.push(`10ख अ.ज.जा.: ${withCode(C.YN, f.st)}${f.st === '1' ? ` ${f.st_n || ''} [${f.st_c || ''}]` : ''}`);
+  if (f.caste_o) out.push(`10ग: ${f.caste_o === 'name' ? f.caste_n || '' : f.caste_o === 'nb' ? 'नहीं बताना चाहते' : 'कोई जाति नहीं'}`);
+  return out.join('<br>');
+}
+function memberPrint(m, hh, opt) {
+  const f = m.f; const rows = [];
+  const add = (n, v) => { if (!qVis(n, m)) return; rows.push(`<div><span class="qn">${n}</span>${Q[n].t}: <b>${v || '<span style="color:#b00">— खाली —</span>'}</b></div>`); };
+  add(11, personTxt(hh, f, 'fa', true)); add(12, personTxt(hh, f, 'mo', true));
+  add(13, f.dis === '1' ? `हाँ (1) — प्रकार: ${(f.dis_t || []).map(c => withCode(C.DIS, c)).join(', ')}` : withCode(C.YN, f.dis));
+  add(14, [comboTxt(f, 'mt'), f.l1 || f.l1_n ? 'ख: ' + comboTxt(f, 'l1') : '', f.l2 || f.l2_n ? 'ग: ' + comboTxt(f, 'l2') : ''].filter(Boolean).join(' · '));
+  add(15, [withCode(C.LIT, f.lit), f.lit === '1' ? 'डिजिटल: ' + withCode(C.YN, f.dlit) : ''].filter(Boolean).join(' · '));
+  add(16, withCode([...C.E16A, ...C.E16B], f.e16));
+  add(17, [withCode(C.E17A, f.e17a), +f.e17a >= 11 ? 'विषय: ' + withCode(C.E17B, f.e17b) : ''].filter(Boolean).join(' · '));
+  add(18, withCode(C.W18, f.w18)); add(19, withCode(C.W19, f.w19)); add(20, esc(f.occ || '')); add(21, esc(f.ind || ''));
+  add(22, withCode(C.C22, f.c22)); add(23, withCode(C.N23, f.n23)); add(24, withCode(C.S24, f.s24));
+  add(25, f.m25 ? `${f.m25 !== '0' ? `क: ${f.km25 || '_'} कि.मी., ${f.h25 || '0'} घं ${f.mi25 || '0'} मि · ` : ''}ख: ${withCode(C.M25, f.m25)}` : '');
+  add(26, placeTxt(f, 'b26')); add(27, [placeTxt(f, 'p27'), f.p27_ru ? withCode(C.RU, f.p27_ru) : ''].filter(Boolean).join(' · '));
+  add(28, withCode(C.R28, f.r28)); add(29, f.d29 ? pad2(f.d29) + ' वर्ष' : ''); add(30, placeTxt(f, 'pm'));
+  for (const n of [31, 32, 33]) add(n, (filled(f['c' + n + 'd']) || filled(f['c' + n + 's'])) ? `पुत्री ${f['c' + n + 'd'] ?? '_'} · पुत्र ${f['c' + n + 's'] ?? '_'}` : '');
+  add(34, f.cov === '1' ? `हाँ (1) — ${placeTxt(f, 'cv')}` : withCode(C.YN, f.cov));
+  add(35, f.bank ?? ''); add(36, yn(f, 'mob_a', 'mob', opt.mask)); add(37, yn(f, 'adh_a', 'adh', opt.mask)); add(38, yn(f, 'ep_a', 'epic', opt.mask)); add(39, yn(f, 'pp_a', 'pp', opt.mask)); add(40, withCode(C.YN, f.dl));
+  return `<div class="pm"><h3>क्र.सं. ${serial(hh, m.id)} — ${esc(f.name || '')} (प्र. 11–40)</h3><div class="kv">${rows.join('')}</div></div>`;
+}
+function hhPrint(hh, opt) {
+  const b = S.blocks.find(x => x.id === hh.f.blockId) || {}; const bf = b.f || {}; const ms = mems(hh);
+  const dob = f => [f.dob_d, f.dob_m, f.dob_y].some(Boolean) ? [f.dob_d || '__', f.dob_m || '__', f.dob_y || '____'].map(pad2).join('-') : '';
+  const spT = (m) => { const f = m.f; if (f.mar !== '2') return ''; const id = f.sp_id; if (id && id !== 'OUT') return `क्र.सं. ${serial(hh, id) || '?'}`; return esc(f.sp_nm || ''); };
+  return `<div class="phh"><h2>परिवार अनुसूची — भवन ${esc(hh.f.bhawan || '—')} · जनगणना मकान सं. ${esc(hh.f.chs || '—')} · परिवार क्रमांक ${esc(hh.f.hno || '—')}</h2>
+  <div class="loc"><span>राज्य <b>${pad2(bf.st || '')}</b></span><span>जिला <b>${pad2(bf.dt || '')}</b></span><span>उप-जिला <b>${esc(bf.sdt || '')}</b></span><span>गाँव/नगर <b>${esc(bf.vilc || '')} ${esc(bf.vil || '')}</b></span><span>वार्ड <b>${esc(bf.ward || '')}</b></span><span>गणना ब्लॉक <b>${esc(bf.eb || '')}</b></span><span>उप-ब्लॉक <b>${esc(bf.seb || '')}</b></span>
+  <span>मकान सं. <b>${esc(hh.f.makan || '')}</b></span><span>मोहल्ला <b>${esc(hh.f.mohalla || '')}</b></span><span>परिवार का प्रकार <b>${withCode(C.HTYPE, hh.f.htype)}</b></span>${hh.f.inst ? `<span>संस्थागत: <b>${esc(hh.f.inst)}</b></span>` : ''}<span>स्व-गणना ID <b>${esc(hh.f.sid || '—')}</b></span><span>सदस्य <b>${ms.length}</b></span></div>
+  <div class="tw"><table><tr><th>क्र.</th><th>01 नाम</th><th>02 संबंध</th><th>03 लिंग</th><th>04 ज.ति. / आयु</th><th>05 वैवाहिक</th><th>06 वि.आयु</th><th>07 पति/पत्नी</th><th>08 राष्ट्रीयता</th><th>09 धर्म</th><th>10 अ.जा./अ.ज.जा./जाति</th></tr>
+  ${ms.map((m, i) => { const f = m.f; return `<tr><td>${i + 1}</td><td><b>${esc(f.name || '')}</b></td><td>${withCode(C.REL, f.rel)}</td><td>${withCode(C.SEX, f.sex)}</td><td>${dob(f)}${f.age !== undefined && f.age !== '' ? ` / <b>${f.age}</b>` : ''}</td><td>${withCode(C.MAR, f.mar)}</td><td>${f.mar && f.mar !== '1' ? esc(f.mage || '') : ''}</td><td>${spT(m)}</td><td>${f.nat === '1' ? 'भारतीय' : f.nat === '2' ? 'अन्य: ' + comboTxt(f, 'nat_c') : ''}</td><td>${f.relg === 'O' ? 'अन्य: ' + esc(f.relg_o || '') : withCode(C.RELG, f.relg)}</td><td>${q10Txt(f)}</td></tr>`; }).join('')}</table></div>
+  ${ms.map(m => memberPrint(m, hh, opt)).join('')}
+  <div class="tick">☐ आधिकारिक ऐप में दर्ज &nbsp; दिनांक: __________ &nbsp; ${hh.f.cnt_ok ? '✓ कुल सदस्य पुष्टि की गई' : '⚠ कुल सदस्यों की पुष्टि नहीं'}</div></div>`;
+}
+function renderPrintView() {
+  const b = block(); const pv = S.pv || (S.pv = { which: 'notent', mask: false });
+  let list = S.hhs.filter(h => !h.f._del && h.f.blockId === b.id);
+  if (S.route.id) list = list.filter(h => h.id === S.route.id);
+  else if (pv.which === 'notent') list = list.filter(h => h.f.entered !== '1' && mems(h).length);
+  else if (pv.which === 'done') list = list.filter(h => hhStatus(h)[0] === 'done');
+  const num = x => parseInt(x, 10) || 0; list.sort((a, c) => num(a.f.chs) - num(c.f.chs) || num(a.f.hno) - num(c.f.hno));
+  const html = `<div class="ps">${list.map(h => hhPrint(h, pv)).join('') || '<p>कोई परिवार नहीं।</p>'}</div>`;
+  $('#print').innerHTML = html;
+  $('#app').innerHTML = `<div class="top"><button data-back>←</button><h1>प्रिंट / ट्रांसफर शीट<small>${list.length} परिवार</small></h1><button data-act="doprint">🖨 प्रिंट</button></div>
+  ${S.route.id ? '' : `<div class="card"><div class="chips">${[['notent', 'जो अभी दर्ज नहीं हुए'], ['done', 'केवल पूर्ण'], ['all', 'सभी']].map(([k, l]) => `<button class="chip${pv.which === k ? ' on' : ''}" data-pv="${k}">${l}</button>`).join('')}</div></div>`}
+  <div class="card"><label class="row"><input type="checkbox" id="pv-mask" style="width:24px;min-height:24px"${pv.mask ? ' checked' : ''}> मोबाइल/आधार/EPIC/पासपोर्ट के केवल अंतिम 4 अंक दिखाएँ</label>
+  <div class="hint">"प्रिंट" → प्रिंटर चुनें, या "PDF के रूप में सेव करें"। छपे कागज़ गोपनीय हैं — काम के बाद नष्ट करें।</div></div>
+  <div class="card" style="padding:6px;overflow-x:auto">${html}</div>`;
+}
+
+/* =================== CSV =================== */
+const CSV_KEYS = ['name', 'rel', 'sex', 'dob_d', 'dob_m', 'dob_y', 'age', 'mar', 'mage', 'sp_id', 'sp_nm', 'nat', 'nat_c', 'nat_c_n', 'relg', 'relg_o', 'sc', 'sc_c', 'sc_n', 'st', 'st_c', 'st_n', 'caste_o', 'caste_n',
+  'fa_id', 'fa_nm', 'fa_dd', 'fa_dm', 'fa_dy', 'fa_pl_t', 'fa_pl_st', 'fa_pl_dt', 'fa_pl_vil', 'fa_pl_c', 'fa_rg', 'fa_rgo', 'mo_id', 'mo_nm', 'mo_dd', 'mo_dm', 'mo_dy', 'mo_pl_t', 'mo_pl_st', 'mo_pl_dt', 'mo_pl_vil', 'mo_pl_c', 'mo_rg', 'mo_rgo',
+  'dis', 'dis_t', 'mt', 'mt_n', 'l1', 'l1_n', 'l2', 'l2_n', 'lit', 'dlit', 'e16', 'e17a', 'e17b', 'w18', 'w19', 'occ', 'ind', 'c22', 'n23', 's24', 'km25', 'h25', 'mi25', 'm25',
+  'b26_t', 'b26_st', 'b26_dt', 'b26_vil', 'b26_c', 'p27_t', 'p27_st', 'p27_dt', 'p27_vil', 'p27_c', 'p27_ru', 'r28', 'd29', 'pm_t', 'pm_st', 'pm_dt', 'pm_vil', 'pm_addr', 'pm_c',
+  'c31d', 'c31s', 'c32d', 'c32s', 'c33d', 'c33s', 'cov', 'cv_t', 'cv_st', 'cv_dt', 'cv_c', 'bank', 'mob_a', 'mob', 'adh_a', 'adh', 'ep_a', 'epic', 'pp_a', 'pp', 'dl'];
+function toCSV(hhs) {
+  const H = ['block_eb', 'owner', 'bhawan', 'census_house_no', 'household_no', 'makan', 'mohalla', 'htype', 'self_enum_id', 'serial', ...CSV_KEYS, 'status'];
+  const q = v => { v = Array.isArray(v) ? v.join(' ') : String(v ?? ''); if (/^\d{10,}$/.test(v)) v = "'" + v; return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
+  const lines = [H.join(',')];
+  for (const h of hhs) { const b = S.blocks.find(x => x.id === h.f.blockId) || { f: {} };
+    mems(h).forEach((m, i) => { const f = { ...m.f }; for (const p of ['sp', 'fa', 'mo']) if (f[p + '_id'] && f[p + '_id'] !== 'OUT') f[p + '_id'] = serial(h, f[p + '_id']);
+      lines.push([b.f.eb, b.f.owner, h.f.bhawan, h.f.chs, h.f.hno, h.f.makan, h.f.mohalla, h.f.htype, h.f.sid, i + 1, ...CSV_KEYS.map(k => f[k]), hhStatus(h)[1]].map(q).join(',')); }); }
+  return '﻿' + lines.join('\r\n');
+}
+
+/* =================== backup / share / merge =================== */
+function exportObj(blockIds) {
+  const blocks = S.blocks.filter(b => blockIds.includes(b.id));
+  const hhs = S.hhs.filter(h => blockIds.includes(h.f.blockId));
+  return { app: 'census2027-field-notebook', v: 1, at: Date.now(), by: me(), blocks, hhs };
+}
+const stamp = () => { const d = new Date(); const p = n => String(n).padStart(2, '0'); return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`; };
+async function deliver(name, text, mime, share) {
+  const blob = new Blob([text], { type: mime }); const file = new File([blob], name, { type: mime });
+  if (share && navigator.canShare && navigator.canShare({ files: [file] })) {
+    try { await navigator.share({ files: [file], title: name }); return true; } catch (e) { if (e.name === 'AbortError') return false; }
+  }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 3000); return true;
+}
+async function doBackup(share) {
+  await flush(); const b = block();
+  const ids = share ? [b.id] : S.blocks.map(x => x.id);
+  const nm = `census_${share ? 'share' : 'backup'}_EB${(b.f.eb || '0000').replace(/\W/g, '')}_${stamp()}.txt`; // ASCII name; .txt so WhatsApp/Bluetooth accept it
+  const ok = await deliver(nm, JSON.stringify(exportObj(ids)), 'text/plain', share);
+  if (ok) { S.meta.lastBackup = Date.now(); await saveMeta(); toast(share ? 'फ़ाइल शेयर के लिए तैयार' : 'बैकअप Downloads में सेव हुआ'); render(); }
+}
+const KEYQ = [[/^name$/, 1], [/^rel$/, 2], [/^sex$/, 3], [/^(dob_|age)/, 4], [/^mar$/, 5], [/^mage$/, 6], [/^sp_/, 7], [/^nat/, 8], [/^relg/, 9], [/^(sc|st|caste)/, 10], [/^fa_/, 11], [/^mo_/, 12], [/^dis/, 13], [/^(mt|l1|l2)/, 14], [/^(lit|dlit)$/, 15], [/^e16/, 16], [/^e17/, 17], [/^w18/, 18], [/^w19/, 19], [/^occ/, 20], [/^ind$/, 21], [/^c22/, 22], [/^n23/, 23], [/^s24/, 24], [/(25)$/, 25], [/^b26/, 26], [/^p27/, 27], [/^r28/, 28], [/^d29/, 29], [/^pm_/, 30], [/^c31/, 31], [/^c32/, 32], [/^c33/, 33], [/^(cov|cv_)/, 34], [/^bank/, 35], [/^mob/, 36], [/^adh/, 37], [/^(ep_|epic)/, 38], [/^pp/, 39], [/^dl$/, 40]];
+const HKEY = { chs: 'जनगणना मकान सं.', hno: 'परिवार क्रमांक', bhawan: 'भवन संख्या', makan: 'मकान संख्या', mohalla: 'मोहल्ला', head0: 'मुखिया (सूची)', sid: 'स्व-गणना ID', htype: 'परिवार का प्रकार', entered: 'ऐप में दर्ज', cnt_ok: 'सदस्य पुष्टि' };
+const keyLabel = (k) => { const q = KEYQ.find(([r]) => r.test(k)); return q ? `प्र.${q[1]}` : (HKEY[k] || k); };
+function mergeEnt(a, b, rep, ctx) {
+  for (const k of Object.keys(b.m || {})) {
+    const tb = b.m[k][0], ta = (a.m[k] || [0])[0]; const same = JSON.stringify(a.f[k]) === JSON.stringify(b.f[k]);
+    if (tb > ta) { if (!same) { rep.upd++; if (ta && filled(a.f[k]) && !k.startsWith('_')) rep.conf.push(`${ctx} · ${keyLabel(k)}: "${a.f[k]}" → "${b.f[k]}" (${b.m[k][1]})`); } a.f[k] = b.f[k]; a.m[k] = b.m[k]; }
+    else if (tb < ta && !same && filled(b.f[k]) && !k.startsWith('_')) rep.conf.push(`${ctx} · ${keyLabel(k)}: अपना "${a.f[k]}" रखा, आया था "${b.f[k]}" (${b.m[k][1]})`);
+  }
+}
+async function mergeData(obj) {
+  if (!obj || obj.app !== 'census2027-field-notebook') throw new Error('यह इस ऐप की फ़ाइल नहीं है');
+  const rep = { newB: 0, newH: 0, newM: 0, upd: 0, conf: [] }; const bmap = {};
+  for (const ib of obj.blocks || []) {
+    let lb = S.blocks.find(x => x.id === ib.id) || S.blocks.find(x => x.f.eb && x.f.eb === ib.f.eb && (x.f.owner || '') === (ib.f.owner || '') && !x.f._del);
+    if (!lb) { lb = JSON.parse(JSON.stringify(ib)); if (!lb.f.owner) setF(lb, 'owner', me(), true); S.blocks.push(lb); rep.newB++; } else mergeEnt(lb, ib, rep, 'ब्लॉक');
+    bmap[ib.id] = lb.id; await saveBlock(lb);
+  }
+  for (const ih of obj.hhs || []) {
+    const inc = JSON.parse(JSON.stringify(ih)); if (bmap[inc.f.blockId]) inc.f.blockId = bmap[inc.f.blockId];
+    const lh = S.hhs.find(x => x.id === inc.id);
+    if (!lh) { S.hhs.push(inc); rep.newH++; await saveHH(inc); continue; }
+    const ctx = `म.सं. ${lh.f.chs || inc.f.chs || '?'}`;
+    mergeEnt(lh, inc, rep, ctx);
+    for (const im of inc.members || []) { const lm = lh.members.find(x => x.id === im.id); if (!lm) { lh.members.push(im); rep.newM++; } else mergeEnt(lm, im, rep, `${ctx} · ${lm.f.name || im.f.name || ''}`); }
+    lh.ts = Math.max(lh.ts || 0, inc.ts || 0); await saveHH(lh);
+  }
+  const cur = block(); const newB = S.blocks.filter(b => !b.f._del && (obj.blocks || []).some(ib => bmap[ib.id] === b.id) && b.id !== cur?.id);
+  if (cur && newB.length && !S.hhs.some(h => !h.f._del && h.f.blockId === cur.id)) { setF(cur, '_del', 1, true); await saveBlock(cur); S.meta.curBlock = newB[0].id; await saveMeta(); rep.switched = newB[0].f.eb; }
+  return rep;
+}
+
+/* =================== events =================== */
+function ent(e) { if (e === 'h') return curHH(); if (e === 'b') return S.blocks.find(x => x.id === S.route.bid); const h = curHH(); return h && memById(h, S.memId); }
+function afterChange(rr) {
+  const h = curHH();
+  if (S.route.v === 'hh' && h) {
+    const m = S.memId && memById(h, S.memId);
+    if (rr) { const ae = document.activeElement; const k = ae && ae.dataset ? ae.dataset.k : null; $('#main').innerHTML = m ? memberHTML(m, h) : hhFormHTML(h); if (k) { const el = $(`#main [data-k="${k}"]`); if (el && el.tagName === 'INPUT') { el.focus(); } } }
+    $('#strip').innerHTML = stripHTML(h); refreshNames();
+  }
+}
+function postSet(m, k) {
+  const f = m.f;
+  if (k.startsWith('dob_')) { const a = calcAge(f.dob_d, f.dob_m, f.dob_y); if (a !== null && (f.age_auto === '1' || !filled(f.age))) { setF(m, 'age', String(a)); setF(m, 'age_auto', '1'); } }
+  if (k === 'age') setF(m, 'age_auto', '0');
+  if (k === 'sp_nm' || k === 'fa_nm' || k === 'mo_nm') { const h = curHH(); const p = k.slice(0, 2); const nm = (f[k] || '').trim(); const x = mems(h).find(y => y.id !== m.id && (y.f.name || '').trim() === nm); if (x) { setF(m, p + '_id', x.id); setF(m, k, ''); } }
+}
+document.addEventListener('click', async (ev) => {
+  const t = ev.target.closest('button,[data-open],[data-editblock]'); if (!t) return;
+  const d = t.dataset;
+  if ('back' in d) { history.back(); return; }
+  if (d.go) return go({ v: d.go });
+  if (d.open) return go({ v: 'hh', id: d.open });
+  if (d.editblock) return go({ v: 'block', bid: d.editblock });
+  if (d.filter) { S.filter = d.filter; return render(); }
+  if (d.pv) { S.pv.which = d.pv; return render(); }
+  if (d.jump) { const el = document.getElementById(d.jump); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 120, behavior: 'smooth' }); return; }
+  if (d.mem !== undefined) { await flush(); S.memId = d.mem || null; renderHH(); window.scrollTo(0, 0); return; }
+  if ('set' in d) {
+    const e = ent(d.e || 'm'); if (!e) return; const cur = String(e.f[d.k] ?? '');
+    let v = d.v; if (cur === v) { if (!('toggle' in d)) return; v = ''; } // re-tapping keeps the answer (protects against double-taps)
+    setF(e, d.k, v); if (d.e !== 'h' && d.e !== 'b') postSet(e, d.k);
+    if (d.e === 'h' && d.k === 'entered' && v === '1') toast('आधिकारिक ऐप में दर्ज ✓');
+    return afterChange(true);
+  }
+  if ('multi' in d) {
+    const e = ent('m'); const arr = [...(e.f[d.k] || [])]; const i = arr.indexOf(d.v);
+    if (i >= 0) arr.splice(i, 1); else if (arr.length < +d.max) arr.push(d.v); else return toast(`अधिकतम ${d.max}`);
+    setF(e, d.k, arr); return afterChange(true);
+  }
+  const a = d.act; if (!a) return;
+  const hh = curHH();
+  if (a === 'setup') {
+    const name = $('#su-name').value.trim(); if (!name) return toast('नाम लिखें');
+    S.meta.me = { name, eid: $('#su-eid').value.trim() }; await saveMeta();
+    if (!S.blocks.some(b => !b.f._del)) { const b = newEnt({ owner: name, st: '10', dt: '4', eb: $('#su-eb').value.trim(), vil: $('#su-vil').value.trim() }); S.blocks.push(b); await saveBlock(b); S.meta.curBlock = b.id; await saveMeta(); }
+    navigator.storage?.persist?.(); return go({ v: 'home' });
+  }
+  if (a === 'newhh') { const h = { id: uid(), f: {}, m: {}, members: [], ts: Date.now() }; setF(h, 'blockId', block().id, true); setF(h, 'htype', '1', true); S.hhs.push(h); await saveHH(h); return go({ v: 'hh', id: h.id }); }
+  if (a === 'addmem' || a === 'addhead') {
+    let name = a === 'addhead' ? hh.f.head0 : '';
+    if (a === 'addmem') { name = await askName(hh); if (name === null) return; }
+    const ms = mems(hh); const m = newEnt({ name, _ord: (ms.length ? (ms[ms.length - 1].f._ord || 0) : 0) + 1 });
+    if (!ms.length) { setF(m, 'rel', '01', true); if (!name && hh.f.head0) setF(m, 'name', hh.f.head0, true); }
+    hh.members.push(m); markDirty(); S.memId = m.id; renderHH(); window.scrollTo(0, 0); return;
+  }
+  if (a === 'usehead0') { const m = ent('m'); setF(m, 'name', hh.f.head0); return afterChange(true); }
+  if (a === 'mkmem') {
+    const m = ent('m'); const p = d.p; const nm = (m.f[p + '_nm'] || '').trim(); if (!nm) return;
+    const ms = mems(hh); const nmem = newEnt({ name: nm, _ord: (ms[ms.length - 1]?.f._ord || 0) + 1 });
+    if (p === 'sp') setF(nmem, 'mar', '2', true);
+    hh.members.push(nmem); setF(m, p + '_id', nmem.id); setF(m, p + '_nm', ''); toast(`"${nm}" सदस्य बने — क्र.सं. ${serial(hh, nmem.id)}`); return afterChange(true);
+  }
+  if (a === 'copyhead') { const m = ent('m'); const hd = head(hh); d.keys.split(',').forEach(k => { if (filled(hd.f[k])) setF(m, k, hd.f[k]); }); toast('मुखिया से कॉपी किया'); return afterChange(true); }
+  if (a === 'mvup' || a === 'mvdn') {
+    const ms = mems(hh); const i = ms.findIndex(x => x.id === d.id); const j = a === 'mvup' ? i - 1 : i + 1; if (j < 0 || j >= ms.length) return;
+    ms.forEach((x, idx) => setF(x, '_ord', idx + 1, true)); setF(ms[i], '_ord', j + 1); setF(ms[j], '_ord', i + 1); return afterChange(true);
+  }
+  if (a === 'nextmem') { await flush(); const ms = mems(hh); const i = ms.findIndex(x => x.id === S.memId); S.memId = ms[i + 1]?.id || null; renderHH(); window.scrollTo(0, 0); return; }
+  if (a === 'delmem') { if (!confirm('इस सदस्य को हटाएँ?')) return; const m = ent('m'); setF(m, '_del', 1); S.memId = null; renderHH(); return; }
+  if (a === 'delhh') { if (!confirm('यह पूरा परिवार हटाएँ?')) return; setF(hh, '_del', 1, true); await saveHH(hh); history.back(); return; }
+  if (a === 'finish') return finishDialog(hh);
+  if (a === 'printhh') { await flush(); return go({ v: 'print', id: hh.id }); }
+  if (a === 'doprint') return window.print();
+  if (a === 'backup') return doBackup(false);
+  if (a === 'share') return doBackup(true);
+  if (a === 'csv') { await flush(); const b = block(); return deliver(`census_${b.f.eb || 'block'}_${stamp()}.csv`, toCSV(S.hhs.filter(h => !h.f._del && h.f.blockId === b.id)), 'text/csv', true); }
+  if (a === 'saveme') { S.meta.me = { name: $('#set-name').value.trim() || me(), eid: $('#set-eid').value.trim() }; S.meta.refDate = $('#set-ref').value || ''; await saveMeta(); toast('सहेजा'); return render(); }
+  if (a === 'savepin') { const p = $('#set-pin').value.trim(); if (p && !/^\d{4,6}$/.test(p)) return toast('PIN 4–6 अंक'); S.meta.pin = p ? await sha(p) : ''; await saveMeta(); toast(p ? 'PIN सेट' : 'PIN हटाया'); return render(); }
+  if (a === 'newblock') { const b = newEnt({ owner: '', st: '10', dt: '4' }); S.blocks.push(b); await saveBlock(b); return go({ v: 'block', bid: b.id }); }
+  if (a === 'useblock') { await flush(); S.meta.curBlock = d.id; await saveMeta(); return go({ v: 'home' }); }
+  if (a === 'delblock') { if (!confirm('ब्लॉक और उसके सभी परिवार हटाएँ?')) return; const b = S.blocks.find(x => x.id === d.id); setF(b, '_del', 1, true); await saveBlock(b); for (const h of S.hhs.filter(x => x.f.blockId === b.id)) { setF(h, '_del', 1, true); await saveHH(h); } if (S.meta.curBlock === b.id) { S.meta.curBlock = block()?.id; await saveMeta(); } return go({ v: 'settings' }); }
+  if (a === 'doimport') return doImport();
+});
+document.addEventListener('input', (ev) => {
+  const t = ev.target;
+  if (t.id === 'search') { S.q = t.value; const pos = t.selectionStart; renderHome(); const s = $('#search'); s.focus(); s.setSelectionRange(pos, pos); return; }
+  if (t.id === 'imp-text') { S.imp.text = t.value; return; }
+  if (t.dataset.sug !== undefined || t.dataset.combo !== undefined) showSug(t);
+  const k = t.dataset.k; if (!k || t.dataset.combo !== undefined || t.tagName === 'SELECT') return;
+  let v = t.value; if ('num' in t.dataset) { const c = v.replace(/\D/g, ''); if (c !== v) { v = c; t.value = c; } } if ('up' in t.dataset) { v = v.toUpperCase(); }
+  const e = ent(t.dataset.e || 'm'); if (!e) return; setF(e, k, v);
+  if (t.dataset.e !== 'h' && t.dataset.e !== 'b') postSet(e, k);
+  if (S.route.v === 'hh') { const h = curHH(); $('#strip').innerHTML = stripHTML(h); }
+});
+document.addEventListener('change', async (ev) => {
+  const t = ev.target;
+  if (t.id === 'mergefile') { const file = t.files[0]; if (!file) return; try { const rep = await mergeData(JSON.parse(await file.text())); mergeReport(rep); } catch (e) { alert('मर्ज नहीं हुआ: ' + e.message); } t.value = ''; return; }
+  if (t.id === 'imp-file') { const file = t.files[0]; if (file) { S.imp.text = await file.text(); S.imp.map = []; renderImport(); } return; }
+  if (t.id === 'imp-text') { S.imp.map = []; return renderImport(); }
+  if (t.id === 'imp-head') { S.imp.head = t.checked; S.imp.map = []; return renderImport(); }
+  if (t.dataset.impcol !== undefined) { S.imp.map[+t.dataset.impcol] = t.value; return; }
+  if (t.id === 'pv-mask') { S.pv.mask = t.checked; return render(); }
+  if (t.dataset.act === 'pickblock') { await flush(); S.meta.curBlock = t.value; await saveMeta(); return render(); }
+  const k = t.dataset.k; if (!k) return;
+  const e = ent(t.dataset.e || 'm'); if (!e) return;
+  if (t.dataset.combo !== undefined) { const r = resolveCombo(t.dataset.combo, t.value); setF(e, k, r.c); setF(e, t.dataset.nk || k + '_n', r.n); return afterChange(true); }
+  if (t.tagName === 'SELECT') { setF(e, k, t.value); if (k.endsWith('_st')) setF(e, k.slice(0, -3) + '_dt', ''); return afterChange(true); }
+  if ('rr' in t.dataset) setTimeout(() => afterChange(true), 0);
+});
+
+function askName(hh) {
+  return new Promise(res => {
+    const dlg = document.createElement('dialog');
+    const known = new Set(); mems(hh).forEach(m => ['sp', 'fa', 'mo'].forEach(p => m.f[p + '_id'] === 'OUT' && m.f[p + '_nm'] && known.add(m.f[p + '_nm'])));
+    if (hh.f.head0 && !mems(hh).some(m => m.f.name === hh.f.head0)) known.add(hh.f.head0);
+    dlg.innerHTML = `<h3 style="margin-top:0">नया सदस्य</h3>${known.size ? `<div class="chips">${[...known].map(n => `<button type="button" class="chip" data-pickname="${esc(n)}">${esc(n)}</button>`).join('')}</div>` : ''}<input id="nm-in" data-sug="names" placeholder="नाम — हिंदी या English अक्षरों में…" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+    <div class="hint">English अक्षरों में लिखें (जैसे "mohammad") — पहले से दर्ज शब्द हिंदी में सुझाए जाएँगे। नया नाम लिखकर "जोड़ें" दबाएँ।</div><div class="row" style="margin-top:12px"><button class="btn" value="x">रद्द</button><button class="btn p" value="ok" style="flex:1">जोड़ें</button></div>`;
+    document.body.appendChild(dlg); dlg.showModal(); const i = $('#nm-in', dlg); i.focus();
+    const done = (v) => { if (v === undefined) return; hideSug(); dlg.close(); dlg.remove(); res(v); };
+    dlg.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || b.classList.contains('sgi')) return; if (b.dataset.pickname) return done(b.dataset.pickname); done(b.value === 'ok' ? i.value.trim() : b.value === 'x' ? null : undefined); });
+    i.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); done(i.value.trim()); } });
+    dlg.addEventListener('cancel', () => done(null));
+  });
+}
+function finishDialog(hh) {
+  const ms = mems(hh); const dlg = document.createElement('dialog');
+  const miss = ms.map((m, i) => { const p = progress(m); return p.miss.length ? `<li>${i + 1}. ${esc(m.f.name || '(नाम)')}: प्र. ${p.miss.join(', ')}</li>` : ''; }).join('');
+  dlg.innerHTML = `<h3 style="margin-top:0">परिवार पूर्ण करें</h3>${!hh.f.sid && !hh.f.chs ? '<div class="warn">जनगणना मकान सं. खाली है</div>' : ''}
+  ${miss ? `<div class="warn">ये प्रश्न अभी बाकी हैं:<ul style="margin:4px 0;padding-left:18px">${miss}</ul></div>` : '<div style="color:var(--ok);font-weight:700">✓ सभी सदस्यों के सभी लागू प्रश्न भरे हैं</div>'}
+  <p><b>अंत में पूछें: "क्या कुल सदस्य यही हैं?"</b><br>${ms.map((m, i) => `${i + 1}. ${esc(m.f.name || '')}`).join(', ') || 'कोई सदस्य नहीं'} — कुल <b>${ms.length}</b></p>
+  <div class="row"><button class="btn" value="x">वापस</button><button class="btn ok" value="ok" style="flex:1">हाँ, कुल ${ms.length} सदस्य</button></div>`;
+  document.body.appendChild(dlg); dlg.showModal();
+  dlg.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; if (b.value === 'ok') { setF(hh, 'cnt_ok', String(ms.length)); toast(miss ? 'सदस्य संख्या पुष्ट — बाकी प्रश्न भरना बाकी' : 'परिवार पूर्ण ✓'); afterChange(true); } dlg.close(); dlg.remove(); });
+}
+function mergeReport(rep) {
+  const dlg = document.createElement('dialog');
+  dlg.innerHTML = `<h3 style="margin-top:0">मर्ज पूरा</h3>${rep.switched ? `<p><b>ब्लॉक ${esc(rep.switched)} खोला गया।</b></p>` : ''}<p>नए ब्लॉक: <b>${rep.newB}</b> · नए परिवार: <b>${rep.newH}</b> · नए सदस्य: <b>${rep.newM}</b> · अपडेट उत्तर: <b>${rep.upd}</b></p>
+  ${rep.conf.length ? `<div class="warn">ये उत्तर दोनों फोनों में अलग थे (नया वाला रखा):<ul style="padding-left:18px;margin:4px 0;max-height:40vh;overflow:auto">${rep.conf.slice(0, 200).map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>` : '<p class="mut">कोई टकराव नहीं।</p>'}<button class="btn p w" value="ok">ठीक है</button>`;
+  document.body.appendChild(dlg); dlg.showModal(); dlg.addEventListener('click', e => { if (e.target.closest('button')) { dlg.close(); dlg.remove(); render(); } });
+}
+
+/* ---------- house-list import ---------- */
+function parseTable(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim()); if (!lines.length) return [];
+  const cands = ['\t', ',', ';', '|']; const dl = cands.map(c => [c, lines.slice(0, 10).reduce((s, l) => s + (l.split(c).length - 1), 0)]).sort((a, b) => b[1] - a[1])[0][0];
+  return lines.map(l => { const out = []; let cur = '', q = false; for (let i = 0; i < l.length; i++) { const ch = l[i]; if (ch === '"') { if (q && l[i + 1] === '"') { cur += '"'; i++; } else q = !q; } else if (ch === dl && !q) { out.push(cur.trim()); cur = ''; } else cur += ch; } out.push(cur.trim()); return out; });
+}
+function guessCol(h, i) {
+  h = (h || '').toLowerCase();
+  if (/मुखिया|head|नाम|name/.test(h)) return 'head0';
+  if (/जनगणना|census/.test(h)) return 'chs';
+  if (/परिवार|household|hh/.test(h)) return 'hno';
+  if (/भवन|building/.test(h)) return 'bhawan';
+  if (/मोहल्ला|mohalla|basti|बस्ती/.test(h)) return 'mohalla';
+  if (/मकान|house/.test(h)) return 'makan';
+  return ['bhawan', 'chs', 'hno', 'head0'][i] || '';
+}
+async function doImport() {
+  const st = S.imp; const rows = parseTable(st.text); const data = st.head ? rows.slice(1) : rows; const b = block();
+  if (!st.map.includes('head0') && !st.map.includes('chs')) return toast('कम से कम "मुखिया" या "जनगणना मकान सं." कॉलम चुनें');
+  const exist = new Set(S.hhs.filter(h => h.f.blockId === b.id && !h.f._del).map(h => [h.f.bhawan, h.f.chs, h.f.hno].join('|')));
+  let n = 0, skip = 0;
+  for (const r of data) {
+    const f = { blockId: b.id, htype: '1' }; st.map.forEach((k, i) => { if (k && r[i]) f[k] = r[i]; });
+    const key = [f.bhawan, f.chs, f.hno].join('|'); if (exist.has(key) && key !== '||') { skip++; continue; }
+    const h = newEnt(f); h.members = []; h.ts = Date.now(); S.hhs.push(h); await saveHH(h); exist.add(key); n++;
+  }
+  S.imp = null; toast(`${n} परिवार जोड़े${skip ? `, ${skip} पहले से थे` : ''}`); go({ v: 'home' });
+}
+
+/* =================== PIN lock =================== */
+async function sha(s) { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('cn27:' + s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join(''); }
+function lock() { if (!S.meta.pin) return; const L = $('#lock'); L.hidden = false; const i = $('#lock-in'); i.value = ''; setTimeout(() => i.focus(), 50); }
+$('#lock-in').addEventListener('input', async (e) => { const v = e.target.value; if (v.length >= 4 && await sha(v) === S.meta.pin) { $('#lock').hidden = true; e.target.value = ''; } });
+let hiddenAt = 0;
+document.addEventListener('visibilitychange', () => { if (document.hidden) { hiddenAt = Date.now(); flush(); } else if (S.meta.pin && Date.now() - hiddenAt > 180000) lock(); });
+window.addEventListener('pagehide', flush);
+window.addEventListener('beforeprint', () => { if (S.route.v === 'hh') { const h = curHH(); if (h) $('#print').innerHTML = `<div class="ps">${hhPrint(h, S.pv || { mask: false })}</div>`; } });
+
+/* =================== datalists =================== */
+function refreshNames() {
+  const h = curHH(); const el = $('#dl-names'); if (!el) return;
+  const names = new Set(); S.hhs.forEach(x => { if (h && x.id !== h.id) return; mems(x).forEach(m => ['sp', 'fa', 'mo'].forEach(p => m.f[p + '_nm'] && names.add(m.f[p + '_nm']))); });
+  el.innerHTML = [...names].map(n => `<option value="${esc(n)}">`).join('');
+}
+function buildLists() {
+  const mk = (id, list) => `<datalist id="dl-${id}">${list.map(([c, n]) => `<option value="${esc(n)} — ${c}">`).join('')}</datalist>`;
+  $('#lists').innerHTML = mk('MT', C.MT) + mk('CTY', C.CTY) + '<datalist id="dl-names"></datalist>';
+}
+
+/* =================== Latin letters → Hindi suggestions =================== */
+// Devanagari → rough Latin, then both sides reduced to a sound-key, so "mohammad", "muhammad", "mohd" all find मोहम्मद.
+const DV_C = { 'क': 'k', 'ख': 'kh', 'ग': 'g', 'घ': 'gh', 'ङ': 'n', 'च': 'ch', 'छ': 'chh', 'ज': 'j', 'झ': 'jh', 'ञ': 'n', 'ट': 't', 'ठ': 'th', 'ड': 'd', 'ढ': 'dh', 'ण': 'n', 'त': 't', 'थ': 'th', 'द': 'd', 'ध': 'dh', 'न': 'n', 'प': 'p', 'फ': 'ph', 'ब': 'b', 'भ': 'bh', 'म': 'm', 'य': 'y', 'र': 'r', 'ल': 'l', 'व': 'v', 'श': 'sh', 'ष': 'sh', 'स': 's', 'ह': 'h', 'ळ': 'l' };
+const DV_N = { 'क': 'q', 'ख': 'kh', 'ग': 'g', 'ज': 'z', 'ड': 'r', 'ढ': 'rh', 'फ': 'f' };
+const DV_V = { 'अ': 'a', 'आ': 'aa', 'इ': 'i', 'ई': 'ee', 'उ': 'u', 'ऊ': 'oo', 'ऋ': 'ri', 'ए': 'e', 'ऐ': 'ai', 'ओ': 'o', 'औ': 'au', 'ऑ': 'o' };
+const DV_M = { 'ा': 'aa', 'ि': 'i', 'ी': 'ee', 'ु': 'u', 'ू': 'oo', 'ृ': 'ri', 'े': 'e', 'ै': 'ai', 'ो': 'o', 'ौ': 'au', 'ॉ': 'o' };
+function roman(str, alt) {
+  const ch = [...String(str).normalize('NFD')]; let out = '';
+  for (let i = 0; i < ch.length; i++) {
+    const c = ch[i];
+    if (DV_C[c]) {
+      let b = DV_C[c]; if (ch[i + 1] === '़') { i++; if (!(alt && (c === 'ड' || c === 'ढ'))) b = DV_N[c] || b; }
+      out += b; const n = ch[i + 1];
+      if (n === '्') { i++; continue; } if (DV_M[n]) { out += DV_M[n]; i++; continue; } out += 'a'; continue;
+    }
+    if (DV_V[c]) { out += DV_V[c]; continue; }
+    if (c === 'ं' || c === 'ँ') { out += 'n'; continue; } if (c === 'ः') { out += 'h'; continue; }
+    if (/[a-z]/i.test(c)) { out += c.toLowerCase(); continue; }
+    out += ' ';
+  }
+  return out;
+}
+const nrm = (s) => { s = s.toLowerCase().replace(/[^a-z]/g, '').replace(/ph/g, 'f').replace(/x/g, 'ks').replace(/q/g, 'k').replace(/z/g, 'j').replace(/w/g, 'v').replace(/v/g, 'b').replace(/c(?!h)/g, 'k'); for (let i = 0; i < 2; i++) s = s.replace(/([kgcjtdpbsr])h/g, '$1'); return s; };
+const vk = (s) => nrm(s).replace(/ee|ii/g, 'i').replace(/oo|uu/g, 'u').replace(/a/g, '').replace(/(.)\1+/g, '$1');
+const sk = (s) => nrm(s).replace(/[aeiouy]/g, '').replace(/(.)\1+/g, '$1');
+function mkEntry(d, c, alias) {
+  const srcs = new Set([roman(d), roman(d, true)]); if (alias) srcs.add(alias.toLowerCase());
+  const keys = [...srcs].map(x => { const w = x.split(/\s+/).filter(Boolean); return { v: vk(x), k: sk(x), w: w.map(y => [vk(y), sk(y)]) }; });
+  return { d, c: c || '', keys };
+}
+const DICT = {};
+function dictFor(kind) {
+  if (['MT', 'CTY', 'SC', 'ST'].includes(kind)) return DICT[kind] || (DICT[kind] = C[kind].map(o => mkEntry(o[1], o[0], [o[2], (C.ALIAS[kind] || {})[o[0]]].filter(Boolean).join(' '))));
+  if (DICT[kind] && DICT[kind].at === S.dictAt) return DICT[kind];
+  const set = new Set(C.SEED[kind] || []); const add = (v) => { v = String(v || '').trim(); if (v) set.add(v); };
+  const words = (v) => String(v || '').split(/\s+/).forEach(w => w.length > 1 && /[\u0900-\u097F]/.test(w) && set.add(w));
+  for (const h of S.hhs) { if (h.f._del) continue;
+    if (kind === 'names') { words(h.f.head0); }
+    for (const m of h.members) { const f = m.f; if (f._del) continue;
+      if (kind === 'names') ['name', 'sp_nm', 'fa_nm', 'mo_nm'].forEach(k => words(f[k]));
+      else if (kind === 'occ' || kind === 'ind') add(f[kind]);
+      else if (kind === 'caste') add(f.caste_n);
+      else if (kind === 'vil') Object.keys(f).filter(k => k.endsWith('_vil')).forEach(k => add(f[k]));
+    } }
+  if (kind === 'vil') S.blocks.forEach(b => add(b.f.vil));
+  const arr = [...set].map(v => { const [d, al] = v.split('~'); return mkEntry(d, '', al); }); arr.at = S.dictAt; return (DICT[kind] = arr);
+}
+function sugMatch(q, entries) {
+  q = q.trim().replace(/^(mohd|md)\.?$/i, 'mohammad'); if (!q) return [];
+  const dev = /[ऀ-ॿ]/.test(q), num = /^\d+$/.test(q); const tv = vk(q), ts = sk(q); const out = [];
+  for (const e of entries) {
+    let sc = 0;
+    if (num) { if (e.c && +e.c === +q) sc = 9; }
+    else if (dev) { if (e.d.startsWith(q)) sc = 6; else if (e.d.split(/[\s,]+/).some(w => w.startsWith(q))) sc = 5; }
+    else for (const k of e.keys) {
+      if (tv && k.v.startsWith(tv)) sc = Math.max(sc, k.v === tv ? 4.5 : 4);
+      else if (tv && k.w.some(w => w[0].startsWith(tv))) sc = Math.max(sc, 3);
+      else if (ts.length >= 2 && k.k.startsWith(ts)) sc = Math.max(sc, 2);
+      else if (ts.length >= 2 && k.w.some(w => w[1].startsWith(ts))) sc = Math.max(sc, 1.5);
+    }
+    if (sc) out.push({ sc, d: e.d, c: e.c, exact: sc >= 4.5 || sc === 9 });
+  }
+  out.sort((a, b) => b.sc - a.sc || a.d.length - b.d.length);
+  if (out.length > 1 && out[0].sc === out[1].sc) out.forEach(o => o.exact = false);
+  return out.slice(0, 6);
+}
+const SUG = { box: null, input: null, items: [] };
+function hideSug() { if (SUG.box) SUG.box.hidden = true; SUG.input = null; }
+function showSug(t) {
+  const kind = t.dataset.combo || t.dataset.sug; if (!kind) return;
+  const token = kind === 'names'; const raw = t.value; const q = token ? (raw.match(/(\S*)$/) || ['', ''])[1] : raw;
+  let items = q.trim().length >= (token ? 2 : 1) ? sugMatch(q, dictFor(kind)) : [];
+  items = items.filter(it => it.d !== q.trim() && (token || `${it.d} — ${it.c}` !== raw.trim()));
+  if (!items.length) return hideSug();
+  if (!SUG.box) { SUG.box = document.createElement('div'); SUG.box.className = 'sugbox'; SUG.box.setAttribute('role', 'listbox'); }
+  SUG.box.innerHTML = items.map((it, i) => `<button type="button" class="sgi" data-si="${i}">${esc(it.d)}${it.c ? ` <i>${esc(it.c)}</i>` : ''}</button>`).join('');
+  t.insertAdjacentElement('afterend', SUG.box); SUG.box.hidden = false; SUG.input = t; SUG.items = items;
+}
+function pickSug(i) {
+  const t = SUG.input, it = SUG.items[i]; if (!t || !it) return;
+  if (t.dataset.combo) { t.value = it.c ? `${it.d} — ${it.c}` : it.d; hideSug(); t.blur(); return; }
+  if (t.dataset.sug === 'names') t.value = t.value.replace(/\S*$/, it.d + ' '); else t.value = it.d;
+  t.dispatchEvent(new Event('input', { bubbles: true })); hideSug(); t.focus();
+  if (t.dataset.sug !== 'names') t.dispatchEvent(new Event('change', { bubbles: true }));
+}
+document.addEventListener('pointerdown', (ev) => { const b = ev.target.closest('.sgi'); if (!b) return; ev.preventDefault(); pickSug(+b.dataset.si); });
+document.addEventListener('click', (ev) => { if (ev.target.closest('.sgi')) ev.stopPropagation(); }, true);
+document.addEventListener('focusin', (ev) => { const t = ev.target; if (t.dataset && (t.dataset.sug !== undefined || t.dataset.combo !== undefined)) { S.dictAt = S.dictAt || Date.now(); showSug(t); } });
+document.addEventListener('focusout', (ev) => { if (ev.target === SUG.input) setTimeout(() => { if (document.activeElement !== SUG.input) hideSug(); }, 150); S.dictAt = Date.now(); });
+function scPick(p, list, m) {
+  const f = m.f; const hit = C[list].find(o => o[0] === f[p + '_c']);
+  let h = lbl(list === 'SC' ? 'अ.जा. — सूची से चुनें (हिंदी/English में लिखें)' : 'अ.ज.जा. — सूची से चुनें') + combo(p + '_c', list, m, { nk: p + '_n', ph: list === 'SC' ? 'जैसे: chamar, jatav, dhobi, balmiki…' : 'जैसे: tharu, buksa…' });
+  if (hit && hit[3]) h += `<div class="warn">यह प्रविष्टि: ${esc(hit[3])}</div>`;
+  h += `<div class="hint">कोड = उ.प्र. सूची का क्रमांक (3 अंक)। प्रशिक्षण ऐप से एक बार मिलान कर लें।</div>`;
+  return h;
+}
+async function receiveInbox() {
+  try {
+    const c = await caches.open('fn-inbox'); const r = await c.match('./inbox'); if (!r) return;
+    const txt = await r.text(); await c.delete('./inbox');
+    if (!me()) { toast('पहले अपना नाम डालें, फिर फ़ाइल दोबारा शेयर करें'); return; }
+    if (!confirm('शेयर की गई फ़ाइल को इस फोन के डेटा में मर्ज करें?')) return;
+    mergeReport(await mergeData(JSON.parse(txt)));
+  } catch (e) { alert('फ़ाइल मर्ज नहीं हुई: ' + e.message); }
+}
+
+/* =================== boot =================== */
+(async function boot() {
+  try { await DB.open(); } catch (e) { $('#app').innerHTML = `<div class="banner bad">स्टोरेज नहीं खुल सका: ${esc(e.message)}। Chrome में खोलें, Incognito में नहीं।</div>`; return; }
+  [S.blocks, S.hhs, S.meta] = await Promise.all([DB.all('blocks'), DB.all('hh'), DB.get('meta', 'meta').then(x => x || {})]);
+  if (!block() && S.blocks.length === 0) S.meta.curBlock = null; else if (!S.meta.curBlock || !S.blocks.find(b => b.id === S.meta.curBlock && !b.f._del)) S.meta.curBlock = block()?.id;
+  const inbox = /inbox=1/.test(location.search);
+  buildLists(); history.replaceState({ v: 'home' }, '', location.pathname); render(); lock();
+  if (inbox) receiveInbox();
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('sw.js').catch(() => {});
+})();
+</script>
+</body>
+</html>
